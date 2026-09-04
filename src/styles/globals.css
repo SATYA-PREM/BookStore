@@ -67,6 +67,16 @@ body {
   animation: spin-slow 8s linear infinite;
 }
 
+@media (max-width: 640px) {
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: none;
+    width: auto;
+  }
+}
+
 /* Print Invoice Specific Styling */
 @media print {
   body * {
