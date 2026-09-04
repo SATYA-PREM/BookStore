@@ -70,10 +70,10 @@ body {
 @media (max-width: 640px) {
   .toast-container {
     left: 1rem;
-    right: 1rem;
+    right: auto;
     bottom: 1rem;
     max-width: none;
-    width: auto;
+    width: calc(100% - 2rem);
   }
 }
 
