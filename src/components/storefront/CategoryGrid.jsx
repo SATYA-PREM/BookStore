@@ -1,7 +1,6 @@
-"use client";
-
+﻿
 import React from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import { BookOpen, Sparkles, Briefcase, Cpu, GraduationCap, UserCheck, ArrowRight } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
 

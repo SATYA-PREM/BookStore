@@ -11,6 +11,21 @@ body {
   color: #1F2937;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+  background-color: #0B0F19;
+  color: #F3F4F6;
+}
+
+/* Storefront light/dark background utility */
+.storefront-bg {
+  background-color: #FDFBF7;
+}
+
+html.dark .storefront-bg {
+  background-color: #0B0F19 !important;
 }
 
 /* Custom Scrollbars */

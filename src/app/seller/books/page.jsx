@@ -1,7 +1,6 @@
-"use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import { useBookStore } from "@/context/BookStoreContext";
 import {
   BookOpen,

@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useState } from "react";
 import SellerSidebar from "@/components/seller/SellerSidebar";

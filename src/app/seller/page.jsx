@@ -1,7 +1,6 @@
-"use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import StatCard from "@/components/seller/StatCard";
 import RevenueChart from "@/components/charts/RevenueChart";
 import CategoryDonut from "@/components/charts/CategoryDonut";

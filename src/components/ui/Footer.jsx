@@ -1,7 +1,6 @@
-"use client";
 
 import React from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import { BookOpen, ShieldCheck, Truck, RotateCcw, Headphones, Heart } from "lucide-react";
 
 export default function Footer() {

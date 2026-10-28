@@ -1,8 +1,7 @@
-"use client";
 
 import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link as Link } from "@/components/common/RouterAdapter";
+import { usePathname } from "@/components/common/RouterAdapter";
 import {
   LayoutDashboard,
   BookOpen,

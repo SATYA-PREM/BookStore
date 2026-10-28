@@ -1,7 +1,6 @@
-"use client";
 
 import React, { useState, useMemo, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import BookCard from "@/components/storefront/BookCard";

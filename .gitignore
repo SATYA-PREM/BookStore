@@ -7,11 +7,13 @@
 /coverage
 
 # Next.js Build Output
+# Build Outputs
 /.next/
 /out/
 
 # Production
 /build
+/dist
 
 # Misc
 .DS_Store

@@ -1,59 +1,155 @@
-# BookFlow — SaaS Platform for Book Commerce Management
+# BookFlow
 
-> **Everything You Need to Sell Books Online.**
-> Complete Frontend-Only SaaS Platform with Connected Reactive State, Mock Payment Simulator, and Enterprise Seller Dashboard.
+BookFlow is a frontend-only bookstore SaaS demo built with Next.js and React. It simulates both a retail storefront and a seller operations dashboard for a modern digital book commerce brand.
 
----
+The app is designed to feel like a real e-commerce product: customers can browse books, add items to cart or wishlist, apply coupons, complete checkout, and track orders; sellers can monitor revenue, inventory, order fulfillment, and customer activity from a dashboard.
 
-## 🚀 Key Highlights & Architecture
+## Overview
 
-- **Dual Persona Interfaces**:
-  - **Customer Storefront (`/`)**: Discover books, search & filter, wishlist, interactive shopping cart, working coupon system (`BOOK10`, `WELCOME100`, `READ20`), two-column checkout, mock payment gateway modal (Cards, UPI, Netbanking), order confirmed receipt, live delivery tracking timeline, and downloadable tax invoices.
-  - **Seller SaaS Center (`/seller`)**: Executive revenue metrics (₹82,450+), book catalog manager (Add/Edit/Delete), inventory monitoring with low-stock alerts, order fulfillment lifecycle (updates customer tracking in real time), customer CRM directory, payment transactions ledger, coupon manager, review moderation, and store settings.
-- **Pure Frontend Runtime**:
-  - **No Backend Database Required**: Powered by a unified reactive React Context + persistent `localStorage` synchronization.
-  - **Mock Payment Engine**: Simulates client-side payment verification with real-world test cards (Success: `4242 4242 4242 4242`, Declined: `4000 0000 0000 0002`, Insufficient Funds: `4000 0000 0000 9995`).
-- **Interconnected Data Flow**:
-  - Customer purchase $\rightarrow$ Cart cleared $\rightarrow$ Stock decremented $\rightarrow$ Revenue & Orders incremented $\rightarrow$ Transaction logged $\rightarrow$ Seller notification created $\rightarrow$ Customer order tracking activated.
+This project combines two experiences in one app:
 
----
+- Customer storefront at `/`
+- Seller dashboard at `/seller`
 
-## 📦 How to Run Locally
+It uses a shared reactive store with browser localStorage persistence, so the app behaves like a complete SaaS prototype without a backend service.
+
+## Features
+
+### Customer experience
+- Book catalog with curated hero section and category filtering
+- Search, browse, and quick-view product modals
+- Wishlist and cart management
+- Coupon-based discounts with validation
+- Checkout flow with mock payment modal
+- Order confirmation and tracking timeline
+- Downloadable invoice modal for completed orders
+
+### Seller experience
+- Revenue and order performance cards
+- Inventory and low-stock monitoring
+- Book catalog management workflows
+- Order lifecycle updates and fulfillment tracking
+- Customer analytics and recent activity
+- Transactions, coupons, reviews, and notifications panels
+- Store settings and KPI dashboard
+
+### Frontend-only architecture
+- React Context state management
+- Browser persistence via localStorage
+- Mock payment engine simulation
+- No database or API server required
+
+## Tech Stack
+
+- Next.js 14
+- React 18
+- Tailwind CSS
+- Recharts
+- Lucide React
+
+## Detailed Implementation Manual
+
+For a complete walkthrough of all workflows, checkout & payment engine simulations, seller/admin portals, database schemas, and state architecture, see:
+👉 **[SYSTEM_IMPLEMENTATION.md](file:///d:/PROJECTS/New%20folder/Saas/BookStore/SYSTEM_IMPLEMENTATION.md)**
+
+## Project Structure
 
 ```bash
-# 1. Install dependencies
-npm install
-
-# 2. Run local development server
-npm run dev
-
-# 3. Open browser at http://localhost:3000
+src/
+├── app/
+│   ├── book/[id]/page.jsx
+│   ├── books/page.jsx
+│   ├── cart/page.jsx
+│   ├── checkout/page.jsx
+│   ├── orders/page.jsx
+│   ├── seller/
+│   │   ├── analytics/page.jsx
+│   │   ├── books/page.jsx
+│   │   ├── coupons/page.jsx
+│   │   ├── customers/page.jsx
+│   │   ├── inventory/page.jsx
+│   │   ├── orders/page.jsx
+│   │   ├── payments/page.jsx
+│   │   ├── reviews/page.jsx
+│   │   ├── settings/page.jsx
+│   │   └── page.jsx
+│   ├── success/page.jsx
+│   ├── wishlist/page.jsx
+│   ├── layout.jsx
+│   └── page.jsx
+├── components/
+│   ├── charts/
+│   ├── invoice/
+│   ├── payment/
+│   ├── seller/
+│   ├── storefront/
+│   └── ui/
+├── context/
+│   ├── BookStoreContext.jsx
+│   └── ToastContext.jsx
+├── lib/
+│   ├── initialData.js
+│   └── mockPaymentEngine.js
+├── styles/
+│   └── globals.css
+└── ...
 ```
 
----
+## Getting Started
 
-## 🛠️ Tech Stack
+1. Install dependencies:
 
-- **Framework**: Next.js 14 (App Router) + React 18
-- **Styling**: Tailwind CSS + Custom Glassmorphism & Animations
-- **Icons**: Lucide React
-- **Charts**: Recharts (Revenue Area Charts, Category Donut, Top Books Progress)
-- **State & Storage**: React Context + Browser `localStorage`
-- **Shortcuts**: Global Command Palette (`Ctrl + K` or `Cmd + K`)
+```bash
+npm install
+```
 
----
+2. Start the development server:
 
-## 🏷️ Test Coupons for Shopping Cart
+```bash
+npm run dev
+```
 
-- `BOOK10`: 10% Discount on orders above ₹400
-- `WELCOME100`: Flat ₹100 Off on orders above ₹500
-- `READ20`: 20% Discount on bundles above ₹800
+3. Open the app in your browser:
 
----
+```bash
+http://localhost:3000
+```
 
-## 💳 Demo Payment Test Cards
+## Production Build
 
-- **Success**: `4242 4242 4242 4242` | Expiry: `12/28` | CVV: `123`
-- **Declined**: `4000 0000 0000 0002` | Expiry: `05/27` | CVV: `999`
-- **Insufficient Funds**: `4000 0000 0000 9995` | Expiry: `08/29` | CVV: `777`
+```bash
+npm run build
+```
+
+To start the production build locally:
+
+```bash
+npm run start
+```
+
+## Demo Coupons
+
+The storefront includes working sample coupons:
+
+- `BOOK10`: 10% off on orders above ₹400
+- `WELCOME100`: ₹100 off on orders above ₹500
+- `READ20`: 20% off on bundle purchases above ₹800
+
+## Mock Payment Test Cards
+
+Use these values in the checkout payment modal:
+
+- Success card: `4242 4242 4242 4242` | Expiry: `12/28` | CVV: `123`
+- Declined card: `4000 0000 0000 0002` | Expiry: `05/27` | CVV: `999`
+- Insufficient funds: `4000 0000 0000 9995` | Expiry: `08/29` | CVV: `777`
+
+## Notes
+
+- The app is intentionally frontend-only and does not require a backend database.
+- Store state persists in the browser through localStorage, which makes the experience interactive and persistent during testing.
+- Clearing browser storage resets the demo data.
+
+## License
+
+This project is for demo and learning purposes.
 

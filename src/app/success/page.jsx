@@ -1,8 +1,7 @@
-"use client";
 
 import React, { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useSearchParams } from "@/components/common/RouterAdapter";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import InvoiceModal from "@/components/invoice/InvoiceModal";

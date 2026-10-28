@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { X, Printer, Download, BookOpen, CheckCircle, ShieldCheck } from "lucide-react";

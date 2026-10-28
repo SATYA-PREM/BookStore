@@ -1,7 +1,6 @@
-"use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import {
   Bell,
   Search,
@@ -16,6 +15,7 @@ import {
   Sparkles,
   X
 } from "lucide-react";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useBookStore } from "@/context/BookStoreContext";
 
 export default function SellerHeader({ setIsMobileOpen, onOpenAddBook }) {
@@ -56,6 +56,9 @@ export default function SellerHeader({ setIsMobileOpen, onOpenAddBook }) {
       {/* Right Action Controls */}
       <div className="flex items-center gap-3">
         
+        {/* Theme Toggle Button */}
+        <ThemeToggle />
+
         {/* Quick Add Book Action */}
         <button
           onClick={onOpenAddBook}

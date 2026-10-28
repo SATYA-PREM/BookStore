@@ -1,8 +1,7 @@
-"use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { Link as Link } from "@/components/common/RouterAdapter";
+import { usePathname, useRouter } from "@/components/common/RouterAdapter";
 import {
   BookOpen,
   ShoppingBag,
@@ -14,6 +13,7 @@ import {
   PackageCheck,
   Sparkles
 } from "lucide-react";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useBookStore } from "@/context/BookStoreContext";
 
 export default function Navbar() {
@@ -168,6 +168,9 @@ export default function Navbar() {
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2.5 sm:gap-3.5">
             
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
+
             {/* Wishlist */}
             <Link
               href="/wishlist"

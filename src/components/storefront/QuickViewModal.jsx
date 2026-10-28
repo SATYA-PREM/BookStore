@@ -1,7 +1,6 @@
-"use client";
-
+﻿
 import React, { useState } from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import { X, Star, ShoppingBag, Heart, Check, BookOpen, Truck, ShieldCheck } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
 
@@ -61,15 +60,15 @@ export default function QuickViewModal() {
                 <Star className="w-4 h-4 fill-amber-400 stroke-amber-400 mr-1" />
                 <span>{book.rating}</span>
               </div>
-              <span className="text-gray-400">•</span>
+              <span className="text-gray-400">ΓÇó</span>
               <span className="text-gray-500">{book.reviewsCount} Reader Reviews</span>
             </div>
 
             {/* Pricing */}
             <div className="flex items-baseline gap-3 mt-4">
-              <span className="text-3xl font-serif font-bold text-gray-900">₹{book.price}</span>
+              <span className="text-3xl font-serif font-bold text-gray-900">Γé╣{book.price}</span>
               {book.originalPrice && (
-                <span className="text-base text-gray-400 line-through">₹{book.originalPrice}</span>
+                <span className="text-base text-gray-400 line-through">Γé╣{book.originalPrice}</span>
               )}
               <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
                 In Stock ({book.stock} available)
@@ -107,7 +106,7 @@ export default function QuickViewModal() {
                 className="flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-amber-600 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 hover:scale-[1.02]"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Add to Cart • ₹{book.price * quantity}</span>
+                <span>Add to Cart ΓÇó Γé╣{book.price * quantity}</span>
               </button>
 
               <button
@@ -129,7 +128,7 @@ export default function QuickViewModal() {
                 className="text-amber-700 font-semibold hover:underline flex items-center gap-1"
               >
                 <BookOpen className="w-3.5 h-3.5" />
-                View Complete Book Details & Reviews →
+                View Complete Book Details & Reviews ΓåÆ
               </Link>
             </div>
           </div>

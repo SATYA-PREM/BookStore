@@ -1,8 +1,7 @@
-"use client";
 
 import React, { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useParams, useRouter } from "@/components/common/RouterAdapter";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import BookCard from "@/components/storefront/BookCard";

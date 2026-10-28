@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useState } from "react";
 import { X, Plus, BookOpen, Sparkles, Upload } from "lucide-react";

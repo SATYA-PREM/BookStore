@@ -1,7 +1,6 @@
-"use client";
-
+﻿
 import React from "react";
-import Link from "next/link";
+import { Link as Link } from "@/components/common/RouterAdapter";
 import { Heart, ShoppingBag, Eye, Star } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
 
@@ -102,11 +101,11 @@ export default function BookCard({ book }) {
           <div>
             <div className="flex items-baseline gap-1.5">
               <span className="text-lg font-bold text-gray-900 font-serif">
-                ₹{book.price}
+                Γé╣{book.price}
               </span>
               {book.originalPrice && book.originalPrice > book.price && (
                 <span className="text-xs text-gray-400 line-through font-normal">
-                  ₹{book.originalPrice}
+                  Γé╣{book.originalPrice}
                 </span>
               )}
             </div>
