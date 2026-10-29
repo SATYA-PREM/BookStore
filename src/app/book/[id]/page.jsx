@@ -1,7 +1,5 @@
-
 import React, { useState } from "react";
-import { useParams, useRouter } from "@/components/common/RouterAdapter";
-import { Link as Link } from "@/components/common/RouterAdapter";
+import { useParams, useRouter, Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import BookCard from "@/components/storefront/BookCard";
@@ -13,14 +11,9 @@ import {
   Heart,
   Truck,
   ShieldCheck,
-  RotateCcw,
-  BookOpen,
-  Calendar,
-  Layers,
-  Globe,
-  Share2,
-  CheckCircle2
+  RotateCcw
 } from "lucide-react";
+import styles from "./bookDetails.module.css";
 
 export default function BookDetailsPage() {
   const params = useParams();
@@ -28,21 +21,19 @@ export default function BookDetailsPage() {
   const { books, addToCart, toggleWishlist, isInWishlist, reviews } = useBookStore();
 
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState("about"); // 'about' | 'specs' | 'reviews'
+  const [activeTab, setActiveTab] = useState("about");
 
   const book = books.find((b) => b.id === params.id) || books[0];
   const wishlisted = isInWishlist(book?.id);
 
   if (!book) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+      <div className={styles.pageWrapper}>
         <Navbar />
-        <div className="flex-1 flex items-center justify-center p-8">
-          <div className="text-center space-y-3">
-            <h2 className="text-2xl font-serif font-bold">Book Not Found</h2>
-            <Link href="/books" className="text-amber-600 font-bold hover:underline">
-              Back to Catalog
-            </Link>
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "1.5rem", fontWeight: 700 }}>Book Not Found</h2>
+            <Link href="/books" style={{ color: "#d97706", fontWeight: 700 }}>Back to Catalog</Link>
           </div>
         </div>
         <Footer />
@@ -62,274 +53,234 @@ export default function BookDetailsPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+    <div className={styles.pageWrapper}>
       <Navbar />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 text-xs text-gray-500 mb-8">
-          <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
+      <main className={styles.container}>
+        {/* Breadcrumbs */}
+        <nav className={styles.breadcrumb}>
+          <Link href="/">Home</Link>
           <span>/</span>
-          <Link href="/books" className="hover:text-gray-900 transition-colors">Books</Link>
+          <Link href="/books">Books</Link>
           <span>/</span>
-          <Link href={`/books?category=${encodeURIComponent(book.category)}`} className="hover:text-gray-900 transition-colors">
-            {book.category}
-          </Link>
+          <Link href={`/books?category=${encodeURIComponent(book.category)}`}>{book.category}</Link>
           <span>/</span>
-          <span className="text-gray-900 font-semibold truncate max-w-xs">{book.title}</span>
+          <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>{book.title}</span>
         </nav>
 
-        {/* Main Product Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 bg-white p-6 sm:p-10 rounded-3xl border border-gray-200/80 shadow-sm">
-          
-          {/* Left Column: Book Image Showcase */}
-          <div className="md:col-span-5 flex flex-col items-center">
-            <div className="relative w-full max-w-sm rounded-2xl overflow-hidden p-6 bg-slate-50 border border-slate-100 flex items-center justify-center">
+        {/* Main Product Showcase */}
+        <div className={styles.productCard}>
+          {/* Left Column: Image */}
+          <div className={styles.galleryCol}>
+            <div className={styles.coverFrame}>
               <img
                 src={book.coverImage}
                 alt={book.title}
-                className="w-full max-h-[480px] object-cover rounded-xl shadow-2xl book-spine-effect"
+                className={styles.coverImg}
               />
               <button
                 onClick={() => toggleWishlist(book)}
-                className={`absolute top-8 right-8 p-3 rounded-full backdrop-blur-md shadow-lg transition-all ${
-                  wishlisted
-                    ? "bg-rose-500 text-white shadow-rose-500/30"
-                    : "bg-white/90 text-gray-700 hover:text-rose-500"
-                }`}
+                style={{
+                  position: "absolute",
+                  top: 16,
+                  right: 16,
+                  padding: 10,
+                  borderRadius: 9999,
+                  backgroundColor: wishlisted ? "#f43f5e" : "rgba(255, 255, 255, 0.9)",
+                  color: wishlisted ? "#ffffff" : "#4b5563",
+                  border: "none",
+                  cursor: "pointer"
+                }}
               >
-                <Heart className={`w-5 h-5 ${wishlisted ? "fill-white" : ""}`} />
+                <Heart style={{ width: 20, height: 20, fill: wishlisted ? "currentColor" : "none" }} />
               </button>
             </div>
 
-            {/* Quick Guarantees Under Image */}
-            <div className="grid grid-cols-3 gap-3 w-full mt-6 text-center text-xs text-gray-600">
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center">
-                <Truck className="w-4 h-4 text-amber-600 mb-1" />
-                <span className="font-bold">Fast Delivery</span>
-                <span className="text-[10px] text-gray-400">2-3 Business Days</span>
+            {/* Badges */}
+            <div className={styles.guaranteesGrid}>
+              <div className={styles.guaranteeBox}>
+                <Truck style={{ width: 16, height: 16, color: "#d97706", marginBottom: 4 }} />
+                <span style={{ fontWeight: 700 }}>Fast Delivery</span>
+                <span style={{ fontSize: "0.625rem", color: "#94a3b8" }}>2-3 Business Days</span>
               </div>
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 mb-1" />
-                <span className="font-bold">100% Genuine</span>
-                <span className="text-[10px] text-gray-400">Original Print</span>
+              <div className={styles.guaranteeBox}>
+                <ShieldCheck style={{ width: 16, height: 16, color: "#059669", marginBottom: 4 }} />
+                <span style={{ fontWeight: 700 }}>100% Genuine</span>
+                <span style={{ fontSize: "0.625rem", color: "#94a3b8" }}>Original Print</span>
               </div>
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center">
-                <RotateCcw className="w-4 h-4 text-indigo-600 mb-1" />
-                <span className="font-bold">Easy Returns</span>
-                <span className="text-[10px] text-gray-400">7 Days Policy</span>
+              <div className={styles.guaranteeBox}>
+                <RotateCcw style={{ width: 16, height: 16, color: "#4f46e5", marginBottom: 4 }} />
+                <span style={{ fontWeight: 700 }}>Easy Returns</span>
+                <span style={{ fontSize: "0.625rem", color: "#94a3b8" }}>7 Days Policy</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Book Details & Actions */}
-          <div className="md:col-span-7 flex flex-col justify-between space-y-6">
+          {/* Right Column: Book Details */}
+          <div className={styles.infoCol}>
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                  {book.category}
-                </span>
-                {book.badge && (
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-900 text-amber-300">
-                    {book.badge}
-                  </span>
-                )}
+              <span className={styles.categoryTag}>{book.category}</span>
+              <h1 className={styles.bookTitle} style={{ marginTop: "0.5rem" }}>{book.title}</h1>
+              <div className={styles.authorMeta}>
+                Written by <span style={{ fontWeight: 700, color: "var(--text-primary)" }}>{book.author}</span> • Publisher: <span>{book.publisher}</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-serif font-extrabold text-gray-900 leading-tight">
-                {book.title}
-              </h1>
-
-              <div className="text-sm text-gray-600 mt-2">
-                Written by <span className="font-bold text-gray-900">{book.author}</span> • Publisher: <span className="text-gray-800">{book.publisher}</span>
-              </div>
-
-              {/* Rating Summary */}
-              <div className="flex items-center gap-3 mt-3 text-sm">
-                <div className="flex items-center text-amber-500 font-bold">
-                  <Star className="w-4 h-4 fill-amber-400 stroke-amber-400 mr-1" />
+              {/* Rating */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 12, fontSize: "0.875rem" }}>
+                <div style={{ display: "flex", alignItems: "center", color: "#f59e0b", fontWeight: 700 }}>
+                  <Star style={{ width: 16, height: 16, fill: "#fbbf24", stroke: "#fbbf24", marginRight: 4 }} />
                   <span>{book.rating}</span>
                 </div>
-                <span className="text-gray-300">|</span>
-                <span className="text-gray-600 font-medium">{book.reviewsCount} Verified Reviews</span>
-                <span className="text-gray-300">|</span>
-                <span className="text-emerald-700 font-bold text-xs bg-emerald-50 px-2 py-0.5 rounded">
+                <span style={{ color: "#cbd5e1" }}>|</span>
+                <span style={{ color: "#64748b" }}>{book.reviewsCount} Verified Reviews</span>
+                <span style={{ color: "#cbd5e1" }}>|</span>
+                <span style={{ color: "#059669", fontWeight: 700, backgroundColor: "#ecfdf5", padding: "2px 8px", borderRadius: 4 }}>
                   {book.sales}+ Sold
                 </span>
               </div>
 
-              {/* Pricing Box */}
-              <div className="p-5 rounded-2xl bg-[#FAF8F5] border border-amber-200/60 mt-6 flex items-baseline justify-between">
+              {/* Price Box */}
+              <div className={styles.priceBox} style={{ marginTop: 20 }}>
                 <div>
-                  <div className="text-xs text-gray-500">Retail Price</div>
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-4xl font-serif font-black text-gray-950">
-                      ₹{book.price}
-                    </span>
+                  <div style={{ fontSize: "0.75rem", color: "#64748b" }}>Retail Price</div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+                    <span className={styles.mainPrice}>₹{book.price}</span>
                     {book.originalPrice && (
-                      <span className="text-lg text-gray-400 line-through">
+                      <span style={{ fontSize: "1.125rem", color: "#94a3b8", textDecoration: "line-through" }}>
                         ₹{book.originalPrice}
                       </span>
                     )}
                   </div>
                 </div>
-
-                <div className="text-right">
-                  <div className="text-xs font-bold text-emerald-700 bg-emerald-100/80 px-2.5 py-1 rounded-full inline-block">
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#059669", backgroundColor: "#ecfdf5", padding: "4px 10px", borderRadius: 9999 }}>
                     In Stock ({book.stock} left)
                   </div>
-                  <div className="text-[11px] text-gray-400 mt-1">Free delivery available</div>
                 </div>
               </div>
 
-              {/* Short Summary Description */}
-              <p className="text-sm text-gray-700 leading-relaxed mt-5">
+              <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginTop: 20, lineHeight: 1.6 }}>
                 {book.description}
               </p>
 
-              {/* Quantity Selector and Cart Buttons */}
-              <div className="pt-6 border-t border-gray-100 space-y-4">
-                <div className="flex flex-wrap items-center gap-4">
-                  {/* Quantity controls */}
-                  <div className="flex items-center border-2 border-gray-200 rounded-xl bg-gray-50">
-                    <button
-                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="px-3.5 py-2.5 text-gray-600 hover:text-black font-bold"
-                    >
-                      -
-                    </button>
-                    <span className="px-3 py-2.5 text-sm font-bold text-gray-900 min-w-[3rem] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => setQuantity((q) => Math.min(book.stock, q + 1))}
-                      className="px-3.5 py-2.5 text-gray-600 hover:text-black font-bold"
-                    >
-                      +
-                    </button>
-                  </div>
-
-                  {/* Add to Cart */}
+              {/* Action Buttons */}
+              <div className={styles.actionsRow}>
+                <div style={{ display: "flex", alignItems: "center", border: "1px solid #d1d5db", borderRadius: 12, backgroundColor: "#f9fafb" }}>
                   <button
-                    onClick={() => addToCart(book, quantity)}
-                    disabled={book.stock === 0}
-                    className="flex-1 py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 hover:scale-[1.01]"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    style={{ padding: "10px 14px", fontWeight: 700, color: "#4b5563" }}
                   >
-                    <ShoppingBag className="w-4 h-4 text-amber-400" />
-                    <span>Add to Cart (₹{book.price * quantity})</span>
+                    -
                   </button>
-
-                  {/* Buy Now */}
+                  <span style={{ padding: "10px 12px", fontWeight: 700, minWidth: 40, textAlign: "center" }}>
+                    {quantity}
+                  </span>
                   <button
-                    onClick={handleBuyNow}
-                    disabled={book.stock === 0}
-                    className="py-3.5 px-8 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold text-sm shadow-md shadow-amber-500/20 transition-all hover:scale-[1.01]"
+                    onClick={() => setQuantity((q) => Math.min(book.stock, q + 1))}
+                    style={{ padding: "10px 14px", fontWeight: 700, color: "#4b5563" }}
                   >
-                    Buy Now
+                    +
                   </button>
                 </div>
+
+                <button
+                  onClick={() => addToCart(book, quantity)}
+                  disabled={book.stock === 0}
+                  style={{
+                    flex: 1,
+                    padding: "14px 20px",
+                    borderRadius: 12,
+                    backgroundColor: "#0f172a",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.875rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    cursor: book.stock === 0 ? "not-allowed" : "pointer"
+                  }}
+                >
+                  <ShoppingBag style={{ width: 16, height: 16, color: "#fbbf24" }} />
+                  <span>Add to Cart (₹{book.price * quantity})</span>
+                </button>
+
+                <button
+                  onClick={handleBuyNow}
+                  disabled={book.stock === 0}
+                  className={styles.buyNowBtn}
+                >
+                  Buy Now
+                </button>
               </div>
             </div>
 
-            {/* Book Metadata Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 text-xs">
+            {/* Quick Specs Strip */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, padding: 14, backgroundColor: "#f9fafb", borderRadius: 16, fontSize: "0.75rem", marginTop: 20 }}>
               <div>
-                <span className="text-gray-400 text-[10px] uppercase font-bold block">ISBN</span>
-                <span className="font-mono font-bold text-gray-800">{book.isbn}</span>
+                <span style={{ color: "#94a3b8", display: "block", fontWeight: 700, textTransform: "uppercase", fontSize: "0.625rem" }}>ISBN</span>
+                <span style={{ fontWeight: 700 }}>{book.isbn}</span>
               </div>
               <div>
-                <span className="text-gray-400 text-[10px] uppercase font-bold block">Pages</span>
-                <span className="font-bold text-gray-800">{book.pages} pages</span>
+                <span style={{ color: "#94a3b8", display: "block", fontWeight: 700, textTransform: "uppercase", fontSize: "0.625rem" }}>Pages</span>
+                <span style={{ fontWeight: 700 }}>{book.pages}</span>
               </div>
               <div>
-                <span className="text-gray-400 text-[10px] uppercase font-bold block">Format</span>
-                <span className="font-bold text-gray-800">{book.format}</span>
+                <span style={{ color: "#94a3b8", display: "block", fontWeight: 700, textTransform: "uppercase", fontSize: "0.625rem" }}>Format</span>
+                <span style={{ fontWeight: 700 }}>{book.format}</span>
               </div>
               <div>
-                <span className="text-gray-400 text-[10px] uppercase font-bold block">Language</span>
-                <span className="font-bold text-gray-800">{book.language}</span>
+                <span style={{ color: "#94a3b8", display: "block", fontWeight: 700, textTransform: "uppercase", fontSize: "0.625rem" }}>Language</span>
+                <span style={{ fontWeight: 700 }}>{book.language}</span>
               </div>
             </div>
-
           </div>
-
         </div>
 
-        {/* Tabbed Section: About, Specs, Reviews */}
-        <div className="mt-12 bg-white rounded-3xl p-6 sm:p-10 border border-gray-200/80 shadow-sm">
-          <div className="flex border-b border-gray-200 gap-6">
-            {[
-              { id: "about", name: "About the Book" },
-              { id: "specs", name: "Publishing Specifications" },
-              { id: "reviews", name: `Reader Reviews (${bookReviews.length})` }
-            ].map((tab) => (
+        {/* Tabbed Info */}
+        <div className={styles.tabSection}>
+          <div style={{ display: "flex", gap: 24, borderBottom: "1px solid #e5e7eb", paddingBottom: 12 }}>
+            {["about", "specs", "reviews"].map((t) => (
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`pb-4 text-sm font-bold transition-all border-b-2 ${
-                  activeTab === tab.id
-                    ? "border-amber-600 text-amber-700"
-                    : "border-transparent text-gray-500 hover:text-gray-800"
-                }`}
+                key={t}
+                onClick={() => setActiveTab(t)}
+                style={{
+                  fontWeight: 700,
+                  fontSize: "0.875rem",
+                  color: activeTab === t ? "#d97706" : "#64748b",
+                  borderBottom: activeTab === t ? "2px solid #d97706" : "none",
+                  paddingBottom: 8,
+                  textTransform: "capitalize"
+                }}
               >
-                {tab.name}
+                {t === "about" ? "About the Book" : t === "specs" ? "Publishing Specs" : `Reviews (${bookReviews.length})`}
               </button>
             ))}
           </div>
 
-          <div className="pt-6">
-            {activeTab === "about" && (
-              <div className="space-y-4 max-w-3xl text-sm text-gray-700 leading-relaxed">
-                <h3 className="font-serif font-bold text-xl text-gray-900">
-                  Comprehensive Overview
-                </h3>
-                <p>{book.about || book.description}</p>
-                <p>
-                  Whether you are seeking personal transformation, strategic business insight, or captivating literary storytelling, {book.title} provides timeless value curated for enthusiastic readers.
-                </p>
-              </div>
-            )}
-
+          <div style={{ paddingTop: 20, fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
+            {activeTab === "about" && <p>{book.about || book.description}</p>}
             {activeTab === "specs" && (
-              <div className="max-w-2xl">
-                <table className="w-full text-xs text-left divide-y divide-gray-200">
-                  <tbody className="divide-y divide-gray-100">
-                    <tr><td className="py-2.5 font-bold text-gray-500 w-1/3">Book Title</td><td className="py-2.5 font-semibold text-gray-900">{book.title}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">Author</td><td className="py-2.5 font-semibold text-gray-900">{book.author}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">Publisher</td><td className="py-2.5 font-semibold text-gray-900">{book.publisher}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">Publication Date</td><td className="py-2.5 font-semibold text-gray-900">{book.publicationDate}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">ISBN-13</td><td className="py-2.5 font-mono text-gray-900">{book.isbn}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">Page Count</td><td className="py-2.5 font-semibold text-gray-900">{book.pages}</td></tr>
-                    <tr><td className="py-2.5 font-bold text-gray-500">Language</td><td className="py-2.5 font-semibold text-gray-900">{book.language}</td></tr>
-                  </tbody>
-                </table>
+              <div style={{ maxWidth: 500 }}>
+                <p><strong>Title:</strong> {book.title}</p>
+                <p><strong>Author:</strong> {book.author}</p>
+                <p><strong>Publisher:</strong> {book.publisher}</p>
+                <p><strong>Publication Date:</strong> {book.publicationDate}</p>
+                <p><strong>ISBN:</strong> {book.isbn}</p>
               </div>
             )}
-
             {activeTab === "reviews" && (
-              <div className="space-y-6 max-w-3xl">
+              <div>
                 {bookReviews.length > 0 ? (
                   bookReviews.map((rev) => (
-                    <div key={rev.id} className="p-4 rounded-2xl bg-gray-50 border border-gray-100 space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <div className="font-bold text-gray-900">{rev.customerName}</div>
-                        <div className="text-gray-400">{rev.date}</div>
-                      </div>
-                      <div className="flex text-amber-500 gap-1">
-                        {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400" />
-                        ))}
-                      </div>
-                      <p className="text-xs text-gray-700 leading-relaxed italic">
-                        "{rev.comment}"
-                      </p>
+                    <div key={rev.id} style={{ padding: 12, borderBottom: "1px solid #f1f5f9" }}>
+                      <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{rev.customerName}</div>
+                      <div style={{ color: "#f59e0b", margin: "4px 0" }}>★ {rev.rating} / 5</div>
+                      <p style={{ fontStyle: "italic" }}>"{rev.comment}"</p>
                     </div>
                   ))
                 ) : (
-                  <div className="text-xs text-gray-500 p-6 text-center bg-gray-50 rounded-2xl">
-                    No reviews yet for this title. Be the first reader to review it after purchase!
-                  </div>
+                  <p>No reviews yet for this title.</p>
                 )}
               </div>
             )}
@@ -338,18 +289,17 @@ export default function BookDetailsPage() {
 
         {/* Related Books */}
         {relatedBooks.length > 0 && (
-          <div className="mt-16">
-            <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">
+          <div style={{ marginTop: 48 }}>
+            <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "1.5rem", fontWeight: 700, marginBottom: 20 }}>
               Readers Also Explored
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 20 }}>
               {relatedBooks.map((relBook) => (
                 <BookCard key={relBook.id} book={relBook} />
               ))}
             </div>
           </div>
         )}
-
       </main>
 
       <Footer />
@@ -357,4 +307,3 @@ export default function BookDetailsPage() {
     </div>
   );
 }
-
