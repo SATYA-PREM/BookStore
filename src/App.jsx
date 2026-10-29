@@ -67,6 +67,22 @@ export default function App() {
                   <Route path="reviews" element={<SellerReviewsPage />} />
                   <Route path="settings" element={<SellerSettingsPage />} />
                 </Route>
+                {/* Catch-all Not Found Route */}
+                <Route
+                  path="*"
+                  element={
+                    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-[#FDFBF7] dark:bg-[#0B0F19]">
+                      <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-2">404 - Page Not Found</h1>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6">The route you visited does not exist.</p>
+                      <a
+                        href="/"
+                        className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm transition-all"
+                      >
+                        Return to Storefront
+                      </a>
+                    </div>
+                  }
+                />
               </Routes>
               <CommandPalette />
             </div>

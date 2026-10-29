@@ -31,8 +31,8 @@ export default function CheckoutPage() {
 
   // Customer Form State
   const [customer, setCustomer] = useState({
-    name: "Satya Prem",
-    email: "satya@example.com",
+    name: "Charvi Prasad",
+    email: "charvi@example.com",
     phone: "+91 98765 43210",
     address: "42 Tech Park, Sector 5",
     city: "Bengaluru",

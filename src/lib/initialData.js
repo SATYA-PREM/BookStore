@@ -306,8 +306,8 @@ export const INITIAL_ORDERS = [
   {
     id: "BF-1024",
     customerId: "CUS001",
-    customerName: "Satya Prem",
-    customerEmail: "satya@example.com",
+    customerName: "Charvi Prasad",
+    customerEmail: "charvi@example.com",
     customerPhone: "+91 98765 43210",
     address: {
       street: "42 Tech Park, Sector 5",
@@ -419,8 +419,8 @@ export const INITIAL_ORDERS = [
 export const INITIAL_CUSTOMERS = [
   {
     id: "CUS001",
-    name: "Satya Prem",
-    email: "satya@example.com",
+    name: "Charvi Prasad",
+    email: "charvi@example.com",
     phone: "+91 98765 43210",
     ordersCount: 12,
     totalSpent: 8420,
@@ -467,7 +467,7 @@ export const INITIAL_TRANSACTIONS = [
   {
     id: "TXN-829381",
     orderId: "BF-1024",
-    customerName: "Satya Prem",
+    customerName: "Charvi Prasad",
     amount: 942,
     method: "Visa Card (•••• 4242)",
     status: "successful",
@@ -508,7 +508,7 @@ export const INITIAL_REVIEWS = [
     id: "REV001",
     bookId: "BK001",
     bookTitle: "Atomic Habits",
-    customerName: "Satya Prem",
+    customerName: "Charvi Prasad",
     rating: 5,
     date: "2026-09-01",
     comment: "Life-changing book! The 1% improvement framework is genuinely practical and well-structured.",
@@ -540,7 +540,7 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: "NOTIF-001",
     title: "New Order Received",
-    message: "Order #BF-1024 has been placed by Satya Prem for ₹942.",
+    message: "Order #BF-1024 has been placed by Charvi Prasad for ₹942.",
     type: "order",
     time: "10 mins ago",
     read: false
@@ -564,7 +564,7 @@ export const INITIAL_NOTIFICATIONS = [
   {
     id: "NOTIF-004",
     title: "5-Star Review Added",
-    message: "Satya left a 5-star review on Atomic Habits.",
+    message: "Charvi left a 5-star review on Atomic Habits.",
     type: "review",
     time: "1 day ago",
     read: true

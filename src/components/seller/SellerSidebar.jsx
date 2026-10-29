@@ -175,7 +175,7 @@ export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
                 S
               </div>
               <div className="truncate">
-                <div className="font-bold text-white text-[11px] truncate">Satya Prem</div>
+                <div className="font-bold text-white text-[11px] truncate">Charvi Prasad</div>
                 <div className="text-[10px] text-slate-400">Store Admin</div>
               </div>
             </div>

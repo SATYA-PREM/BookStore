@@ -29,10 +29,10 @@ export default function MockPaymentModal({
   const [cardNumber, setCardNumber] = useState("4242 4242 4242 4242");
   const [cardExpiry, setCardExpiry] = useState("12/28");
   const [cardCvv, setCardCvv] = useState("123");
-  const [cardName, setCardName] = useState(orderData?.customer?.name || "Satya Prem");
+  const [cardName, setCardName] = useState(orderData?.customer?.name || "Charvi Prasad");
 
   // UPI Inputs
-  const [upiId, setUpiId] = useState("satya@okaxis");
+  const [upiId, setUpiId] = useState("charvi@okaxis");
 
   // Netbanking
   const [selectedBank, setSelectedBank] = useState("HDFC Bank");
@@ -273,7 +273,7 @@ export default function MockPaymentModal({
                     type="text"
                     value={cardName}
                     onChange={(e) => setCardName(e.target.value)}
-                    placeholder="Satya Prem"
+                    placeholder="Charvi Prasad"
                     required
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm text-slate-900 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   />

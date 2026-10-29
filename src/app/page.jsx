@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from "react";
 import { Link as Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
@@ -103,7 +103,7 @@ export default function StorefrontHome() {
 
                 <div className="md:col-span-8 space-y-4 text-center md:text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                    Γÿà Editor's Choice of the Month
+                    G�� Editor's Choice of the Month
                   </div>
 
                   <h3 className="text-3xl sm:text-4xl font-serif font-bold text-white">
@@ -117,11 +117,11 @@ export default function StorefrontHome() {
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-serif font-bold text-amber-400">
-                        Γé╣{featuredBook.price}
+                        G�{featuredBook.price}
                       </span>
                       {featuredBook.originalPrice && (
                         <span className="text-base text-slate-500 line-through">
-                          Γé╣{featuredBook.originalPrice}
+                          G�{featuredBook.originalPrice}
                         </span>
                       )}
                     </div>
@@ -130,7 +130,7 @@ export default function StorefrontHome() {
                       href={`/book/${featuredBook.id}`}
                       className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
                     >
-                      Read Book Summary & Buy ΓåÆ
+                      Read Book Summary & Buy G��
                     </Link>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export default function StorefrontHome() {
             {[
               {
                 quote: "BookFlow has transformed how I buy books. The simulated checkout experience is swift, and the catalog is exceptionally well-curated!",
-                name: "Satya Prem",
+                name: "Charvi Prasad",
                 title: "Software Architect & Reader",
                 rating: 5
               },

@@ -11,6 +11,7 @@ import {
   INITIAL_NOTIFICATIONS,
   STORE_SETTINGS
 } from "@/lib/initialData";
+import { syncDataToJsonFile } from "@/lib/dataService";
 import { useToast } from "./ToastContext";
 
 const BookStoreContext = createContext(null);
@@ -53,49 +54,69 @@ export function BookStoreProvider({ children }) {
   // Quick View Modal
   const [quickViewBook, setQuickViewBook] = useState(null);
 
-  // Load from localStorage on mount
+  // Load from localStorage or public JSON on mount
   useEffect(() => {
-    try {
-      const storedBooks = localStorage.getItem(STORAGE_KEYS.BOOKS);
-      if (storedBooks) setBooks(JSON.parse(storedBooks));
+    async function initData() {
+      try {
+        const storedBooks = localStorage.getItem(STORAGE_KEYS.BOOKS);
+        if (storedBooks) {
+          setBooks(JSON.parse(storedBooks));
+        } else {
+          // Attempt to load initial catalog from public/data/books.json if available
+          try {
+            const res = await fetch("/data/books.json");
+            if (res.ok) {
+              const jsonBooks = await res.json();
+              if (Array.isArray(jsonBooks) && jsonBooks.length > 0) {
+                setBooks(jsonBooks);
+                localStorage.setItem(STORAGE_KEYS.BOOKS, JSON.stringify(jsonBooks));
+              }
+            }
+          } catch (e) {
+            console.log("Using built-in initial books", e);
+          }
+        }
 
-      const storedCategories = localStorage.getItem(STORAGE_KEYS.CATEGORIES);
-      if (storedCategories) setCategories(JSON.parse(storedCategories));
+        const storedCategories = localStorage.getItem(STORAGE_KEYS.CATEGORIES);
+        if (storedCategories) setCategories(JSON.parse(storedCategories));
 
-      const storedCoupons = localStorage.getItem(STORAGE_KEYS.COUPONS);
-      if (storedCoupons) setCoupons(JSON.parse(storedCoupons));
+        const storedCoupons = localStorage.getItem(STORAGE_KEYS.COUPONS);
+        if (storedCoupons) setCoupons(JSON.parse(storedCoupons));
 
-      const storedOrders = localStorage.getItem(STORAGE_KEYS.ORDERS);
-      if (storedOrders) setOrders(JSON.parse(storedOrders));
+        const storedOrders = localStorage.getItem(STORAGE_KEYS.ORDERS);
+        if (storedOrders) setOrders(JSON.parse(storedOrders));
 
-      const storedCustomers = localStorage.getItem(STORAGE_KEYS.CUSTOMERS);
-      if (storedCustomers) setCustomers(JSON.parse(storedCustomers));
+        const storedCustomers = localStorage.getItem(STORAGE_KEYS.CUSTOMERS);
+        if (storedCustomers) setCustomers(JSON.parse(storedCustomers));
 
-      const storedTransactions = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS);
-      if (storedTransactions) setTransactions(JSON.parse(storedTransactions));
+        const storedTransactions = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS);
+        if (storedTransactions) setTransactions(JSON.parse(storedTransactions));
 
-      const storedReviews = localStorage.getItem(STORAGE_KEYS.REVIEWS);
-      if (storedReviews) setReviews(JSON.parse(storedReviews));
+        const storedReviews = localStorage.getItem(STORAGE_KEYS.REVIEWS);
+        if (storedReviews) setReviews(JSON.parse(storedReviews));
 
-      const storedNotifs = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
-      if (storedNotifs) setNotifications(JSON.parse(storedNotifs));
+        const storedNotifs = localStorage.getItem(STORAGE_KEYS.NOTIFICATIONS);
+        if (storedNotifs) setNotifications(JSON.parse(storedNotifs));
 
-      const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-      if (storedSettings) setSettings(JSON.parse(storedSettings));
+        const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+        if (storedSettings) setSettings(JSON.parse(storedSettings));
 
-      const storedCart = localStorage.getItem(STORAGE_KEYS.CART);
-      if (storedCart) setCart(JSON.parse(storedCart));
+        const storedCart = localStorage.getItem(STORAGE_KEYS.CART);
+        if (storedCart) setCart(JSON.parse(storedCart));
 
-      const storedWishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
-      if (storedWishlist) setWishlist(JSON.parse(storedWishlist));
+        const storedWishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+        if (storedWishlist) setWishlist(JSON.parse(storedWishlist));
 
-      const storedCoupon = localStorage.getItem(STORAGE_KEYS.APPLIED_COUPON);
-      if (storedCoupon) setAppliedCoupon(JSON.parse(storedCoupon));
-    } catch (err) {
-      console.error("Failed to load initial data from localStorage:", err);
-    } finally {
-      setIsHydrated(true);
+        const storedCoupon = localStorage.getItem(STORAGE_KEYS.APPLIED_COUPON);
+        if (storedCoupon) setAppliedCoupon(JSON.parse(storedCoupon));
+      } catch (err) {
+        console.error("Failed to load initial data:", err);
+      } finally {
+        setIsHydrated(true);
+      }
     }
+
+    initData();
   }, []);
 
   // Save changes to localStorage
@@ -111,7 +132,19 @@ export function BookStoreProvider({ children }) {
   const updateBooksState = useCallback((newBooks) => {
     setBooks(newBooks);
     saveStorage(STORAGE_KEYS.BOOKS, newBooks);
-  }, [saveStorage]);
+    // Persist real-time updates directly into public/data/books.json
+    syncDataToJsonFile(newBooks, {
+      books: newBooks,
+      categories,
+      coupons,
+      orders,
+      customers,
+      transactions,
+      reviews,
+      notifications,
+      settings
+    });
+  }, [saveStorage, categories, coupons, orders, customers, transactions, reviews, notifications, settings]);
 
   const updateOrdersState = useCallback((newOrders) => {
     setOrders(newOrders);

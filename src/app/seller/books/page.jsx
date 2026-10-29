@@ -1,7 +1,7 @@
-
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link as Link } from "@/components/common/RouterAdapter";
 import { useBookStore } from "@/context/BookStoreContext";
+import { uploadBookImage } from "@/lib/dataService";
 import {
   BookOpen,
   Search,
@@ -11,19 +11,25 @@ import {
   AlertTriangle,
   CheckCircle,
   TrendingUp,
-  Boxes
+  Boxes,
+  Upload,
+  Image as ImageIcon,
+  Save,
+  X
 } from "lucide-react";
 
 export default function SellerBooksPage() {
-  const { books, deleteBook, updateBook } = useBookStore();
+  const { books, deleteBook, updateBook, categories } = useBookStore();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all"); // 'all' | 'published' | 'low-stock' | 'out-of-stock'
   const [editingBook, setEditingBook] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const editFileInputRef = useRef(null);
 
   const filteredBooks = books.filter((b) => {
     if (search.trim()) {
       const q = search.toLowerCase();
-      const match = b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || b.isbn.includes(q);
+      const match = b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || (b.isbn && b.isbn.includes(q));
       if (!match) return false;
     }
 
@@ -34,10 +40,31 @@ export default function SellerBooksPage() {
     return true;
   });
 
+  const handleEditImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !editingBook) return;
+
+    try {
+      setIsUploading(true);
+      const url = await uploadBookImage(file);
+      setEditingBook((prev) => ({ ...prev, coverImage: url }));
+    } catch (err) {
+      console.error("Failed to upload image:", err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSaveEdit = (e) => {
     e.preventDefault();
     if (editingBook) {
-      updateBook(editingBook.id, editingBook);
+      updateBook(editingBook.id, {
+        ...editingBook,
+        price: Number(editingBook.price),
+        originalPrice: Number(editingBook.originalPrice || editingBook.price),
+        stock: Number(editingBook.stock),
+        lowStockThreshold: Number(editingBook.lowStockThreshold || 10)
+      });
       setEditingBook(null);
     }
   };
@@ -52,7 +79,7 @@ export default function SellerBooksPage() {
             Book Catalog Management
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Manage your bookstore inventory, pricing, status, and stock levels.
+            Real-time synchronization across storefront and saved directly in <code className="text-indigo-400 font-mono">public/data/books.json</code>.
           </p>
         </div>
       </div>
@@ -124,11 +151,11 @@ export default function SellerBooksPage() {
                         <img
                           src={book.coverImage}
                           alt={book.title}
-                          className="w-8 h-11 object-cover rounded shadow"
+                          className="w-9 h-12 object-cover rounded shadow bg-slate-950"
                         />
                         <div className="min-w-0">
                           <div className="font-bold text-white truncate max-w-xs">{book.title}</div>
-                          <div className="text-[10px] text-slate-400 font-mono">ISBN: {book.isbn}</div>
+                          <div className="text-[10px] text-slate-400 font-mono">ISBN: {book.isbn || "N/A"}</div>
                         </div>
                       </div>
                     </td>
@@ -191,9 +218,9 @@ export default function SellerBooksPage() {
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
-                          onClick={() => setEditingBook(book)}
+                          onClick={() => setEditingBook({ ...book })}
                           className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white"
-                          title="Edit Book"
+                          title="Edit Book Details & Image"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
@@ -221,14 +248,67 @@ export default function SellerBooksPage() {
       {/* Edit Book Modal */}
       {editingBook && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs">
-            <h3 className="text-lg font-serif font-bold text-white">Edit Book Details</h3>
+          <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <Edit2 className="w-4 h-4 text-indigo-400" />
+                <h3 className="text-base font-serif font-bold text-white">Edit Book & Cover Image</h3>
+              </div>
+              <button onClick={() => setEditingBook(null)} className="p-1 text-slate-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
             <form onSubmit={handleSaveEdit} className="space-y-4">
+              
+              {/* Image Uploader */}
+              <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-indigo-400" /> Cover Image
+                  </span>
+                  {isUploading && <span className="text-indigo-400 text-[11px] animate-pulse">Uploading image...</span>}
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <img
+                    src={editingBook.coverImage}
+                    alt={editingBook.title}
+                    className="w-14 h-20 object-cover rounded-lg bg-slate-900 border border-slate-700 shadow flex-shrink-0"
+                  />
+                  <div className="flex-1 space-y-1.5">
+                    <input
+                      type="file"
+                      ref={editFileInputRef}
+                      accept="image/*"
+                      onChange={handleEditImageUpload}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => editFileInputRef.current?.click()}
+                      disabled={isUploading}
+                      className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center gap-1.5 text-[11px]"
+                    >
+                      <Upload className="w-3 h-3" />
+                      Replace Image from Device
+                    </button>
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={editingBook.coverImage || ""}
+                      onChange={(e) => setEditingBook({ ...editingBook, coverImage: e.target.value })}
+                      className="w-full px-2.5 py-1 bg-slate-900 border border-slate-800 rounded-lg text-white text-[10px]"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Title</label>
+                <label className="block font-bold text-slate-300 mb-1">Book Title</label>
                 <input
                   type="text"
+                  required
                   value={editingBook.title}
                   onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
                   className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
@@ -237,11 +317,46 @@ export default function SellerBooksPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
+                  <label className="block font-bold text-slate-300 mb-1">Author</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingBook.author}
+                    onChange={(e) => setEditingBook({ ...editingBook, author: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-300 mb-1">Category</label>
+                  <select
+                    value={editingBook.category}
+                    onChange={(e) => setEditingBook({ ...editingBook, category: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  >
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.name}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div>
                   <label className="block font-bold text-slate-300 mb-1">Selling Price (₹)</label>
                   <input
                     type="number"
+                    required
                     value={editingBook.price}
-                    onChange={(e) => setEditingBook({ ...editingBook, price: Number(e.target.value) })}
+                    onChange={(e) => setEditingBook({ ...editingBook, price: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-300 mb-1">Original MRP (₹)</label>
+                  <input
+                    type="number"
+                    value={editingBook.originalPrice || editingBook.price}
+                    onChange={(e) => setEditingBook({ ...editingBook, originalPrice: e.target.value })}
                     className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
                   />
                 </div>
@@ -250,35 +365,60 @@ export default function SellerBooksPage() {
                   <input
                     type="number"
                     value={editingBook.stock}
-                    onChange={(e) => setEditingBook({ ...editingBook, stock: Number(e.target.value) })}
+                    onChange={(e) => setEditingBook({ ...editingBook, stock: e.target.value })}
                     className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
                   />
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-bold text-slate-300 mb-1">Badge</label>
+                  <input
+                    type="text"
+                    value={editingBook.badge || ""}
+                    onChange={(e) => setEditingBook({ ...editingBook, badge: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block font-bold text-slate-300 mb-1">Status</label>
+                  <select
+                    value={editingBook.status || "published"}
+                    onChange={(e) => setEditingBook({ ...editingBook, status: e.target.value })}
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  >
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
+              </div>
+
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Badge</label>
-                <input
-                  type="text"
-                  value={editingBook.badge || ""}
-                  onChange={(e) => setEditingBook({ ...editingBook, badge: e.target.value })}
+                <label className="block font-bold text-slate-300 mb-1">Description</label>
+                <textarea
+                  rows={2}
+                  value={editingBook.description || ""}
+                  onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
                   className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2">
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
                 <button
                   type="button"
                   onClick={() => setEditingBook(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300"
+                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold"
+                  disabled={isUploading}
+                  className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center gap-1.5"
                 >
-                  Save Changes
+                  <Save className="w-3.5 h-3.5" />
+                  Save & Sync Live
                 </button>
               </div>
             </form>
@@ -289,4 +429,3 @@ export default function SellerBooksPage() {
     </div>
   );
 }
-

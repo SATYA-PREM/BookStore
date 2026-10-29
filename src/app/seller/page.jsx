@@ -53,7 +53,7 @@ export default function SellerDashboardPage() {
             Live Cloud Store Metrics
           </div>
           <h1 className="text-3xl sm:text-4xl font-serif font-black text-white">
-            Welcome back, Satya
+            Welcome back, Charvi
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
             Here is your book commerce overview, sales velocity, and fulfillment queue for today.

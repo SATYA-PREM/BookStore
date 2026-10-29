@@ -4,7 +4,7 @@ import {
   useNavigate,
   useLocation,
   useParams,
-  useSearchParams,
+  useSearchParams as useRouterSearchParams,
 } from "react-router-dom";
 
 export const Link = forwardRef(function Link(
@@ -38,6 +38,12 @@ export function usePathname() {
   return location.pathname;
 }
 
-export { useParams, useSearchParams };
-export default Link;
+// Next.js returns a URLSearchParams instance directly from useSearchParams()
+// whereas react-router returns [searchParams, setSearchParams]
+export function useSearchParams() {
+  const [searchParams] = useRouterSearchParams();
+  return searchParams;
+}
 
+export { useParams };
+export default Link;
