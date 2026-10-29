@@ -1,8 +1,8 @@
-﻿
 import React from "react";
-import { Link as Link } from "@/components/common/RouterAdapter";
+import { Link } from "@/components/common/RouterAdapter";
 import { BookOpen, Sparkles, Briefcase, Cpu, GraduationCap, UserCheck, ArrowRight } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
+import styles from "./CategoryGrid.module.css";
 
 const ICON_MAP = {
   BookOpen: BookOpen,
@@ -17,30 +17,30 @@ export default function CategoryGrid() {
   const { categories, books } = useBookStore();
 
   return (
-    <section className="py-16 bg-[#FDFBF7] border-b border-gray-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.header}>
           <div>
-            <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
+            <span className={styles.eyebrow}>
               Curated Genres
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mt-1">
+            <h2 className={styles.title}>
               Explore by Category
             </h2>
-            <p className="text-sm text-gray-600 mt-1 max-w-xl">
+            <p className={styles.description}>
               Browse our diverse literary universe organized across non-fiction, personal growth, technology, and classical fiction.
             </p>
           </div>
           <Link
             href="/books"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors"
+            className={styles.viewAllLink}
           >
             <span>View all genres</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight style={{ width: 16, height: 16 }} />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className={styles.grid}>
           {categories.map((cat) => {
             const Icon = ICON_MAP[cat.icon] || BookOpen;
             const actualCount = books.filter((b) => b.category === cat.name).length;
@@ -49,15 +49,21 @@ export default function CategoryGrid() {
               <Link
                 key={cat.id}
                 href={`/books?category=${encodeURIComponent(cat.name)}`}
-                className="group p-5 rounded-2xl bg-white border border-gray-200/80 shadow-sm hover:shadow-md hover:border-amber-500/50 transition-all hover:-translate-y-1 flex flex-col items-center text-center"
+                className={styles.itemCard}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform ${cat.color}`}>
-                  <Icon className="w-6 h-6" />
+                <div
+                  className={styles.iconBox}
+                  style={{
+                    backgroundColor: cat.color ? undefined : "#fef3c7",
+                    color: cat.color ? undefined : "#b45309"
+                  }}
+                >
+                  <Icon style={{ width: 24, height: 24 }} />
                 </div>
-                <h3 className="font-bold text-sm text-gray-900 group-hover:text-amber-700 transition-colors">
+                <h3 className={styles.catName}>
                   {cat.name}
                 </h3>
-                <span className="text-xs text-gray-500 mt-1">
+                <span className={styles.catCount}>
                   {actualCount || cat.count} Titles
                 </span>
               </Link>
@@ -68,4 +74,3 @@ export default function CategoryGrid() {
     </section>
   );
 }
-

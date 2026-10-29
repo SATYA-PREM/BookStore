@@ -8,12 +8,21 @@ import {
 } from "react-router-dom";
 
 export const Link = forwardRef(function Link(
-  { href, to, children, ...props },
+  { href, to, onClick, children, ...props },
   ref
 ) {
   const target = to || href || "/";
+
+  const handleClick = (e) => {
+    // If not a hash anchor, scroll smoothly to top
+    if (typeof target === "string" && !target.includes("#")) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    if (onClick) onClick(e);
+  };
+
   return (
-    <RouterLink ref={ref} to={target} {...props}>
+    <RouterLink ref={ref} to={target} onClick={handleClick} {...props}>
       {children}
     </RouterLink>
   );
@@ -24,10 +33,26 @@ export function useRouter() {
   const location = useLocation();
 
   return {
-    push: (path) => navigate(path),
-    replace: (path) => navigate(path, { replace: true }),
-    back: () => navigate(-1),
-    forward: () => navigate(1),
+    push: (path) => {
+      navigate(path);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    },
+    replace: (path) => {
+      navigate(path, { replace: true });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    },
+    back: () => {
+      if (window.history.length > 1) {
+        navigate(-1);
+      } else {
+        navigate("/");
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    },
+    forward: () => {
+      navigate(1);
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    },
     refresh: () => window.location.reload(),
     pathname: location.pathname,
   };
