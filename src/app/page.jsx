@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { Link as Link } from "@/components/common/RouterAdapter";
+import { Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import Hero from "@/components/storefront/Hero";
@@ -8,7 +7,8 @@ import CategoryGrid from "@/components/storefront/CategoryGrid";
 import BookCard from "@/components/storefront/BookCard";
 import QuickViewModal from "@/components/storefront/QuickViewModal";
 import { useBookStore } from "@/context/BookStoreContext";
-import { Sparkles, ArrowRight, BookOpen, Star, TrendingUp, CheckCircle } from "lucide-react";
+import { Sparkles, ArrowRight, Star } from "lucide-react";
+import styles from "./page.module.css";
 
 export default function StorefrontHome() {
   const { books } = useBookStore();
@@ -29,10 +29,10 @@ export default function StorefrontHome() {
   const featuredBook = books[0] || {};
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FDFBF7]">
+    <div className={styles.pageWrapper}>
       <Navbar />
 
-      <main className="flex-1">
+      <main className={styles.mainContent}>
         {/* 1. Hero Section */}
         <Hero />
 
@@ -40,29 +40,25 @@ export default function StorefrontHome() {
         <CategoryGrid />
 
         {/* 3. Popular Books Catalog Section */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <section className={styles.container}>
+          <div className={styles.sectionHeader}>
             <div>
-              <span className="text-xs font-bold text-amber-600 uppercase tracking-widest flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
+              <span className={styles.eyebrow}>
+                <Sparkles style={{ width: 14, height: 14 }} />
                 Handpicked Collection
               </span>
-              <h2 className="text-3xl font-serif font-bold text-gray-900 mt-1">
+              <h2 className={styles.sectionTitle}>
                 Popular Bestsellers
               </h2>
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex flex-wrap gap-2">
+            <div className={styles.filterPills}>
               {filterTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                    activeTab === tab.id
-                      ? "bg-slate-900 text-white shadow-md shadow-slate-900/20"
-                      : "bg-white text-gray-600 border border-gray-200 hover:border-gray-400 hover:text-gray-900"
-                  }`}
+                  className={`${styles.pillBtn} ${activeTab === tab.id ? styles.pillBtnActive : ""}`}
                 >
                   {tab.name}
                 </button>
@@ -71,66 +67,66 @@ export default function StorefrontHome() {
           </div>
 
           {/* Book Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className={styles.booksGrid}>
             {filteredBooks.map((book) => (
               <BookCard key={book.id} book={book} />
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className={styles.viewAllWrapper}>
             <Link
               href="/books"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white border border-gray-300 hover:border-gray-900 text-gray-900 font-bold text-sm shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5"
+              className={styles.viewAllBtn}
             >
               <span>Explore All {books.length} Books in Catalog</span>
-              <ArrowRight className="w-4 h-4 text-amber-600" />
+              <ArrowRight style={{ width: 16, height: 16, color: "#d97706" }} />
             </Link>
           </div>
         </section>
 
         {/* 4. Deal of the Week Spotlight Banner */}
         {featuredBook.id && (
-          <section className="py-12 bg-gradient-to-r from-slate-900 via-slate-950 to-indigo-950 text-white border-y border-slate-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <div className="md:col-span-4 flex justify-center">
+          <section className={styles.spotlightSection}>
+            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1rem" }}>
+              <div className={styles.spotlightGrid}>
+                <div className={styles.spotlightImgWrapper}>
                   <img
                     src={featuredBook.coverImage}
                     alt={featuredBook.title}
-                    className="w-48 sm:w-56 rounded-2xl shadow-2xl book-spine-effect border border-slate-700"
+                    className={styles.spotlightCover}
                   />
                 </div>
 
-                <div className="md:col-span-8 space-y-4 text-center md:text-left">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                    G�� Editor's Choice of the Month
+                <div className={styles.spotlightContent}>
+                  <div className={styles.spotlightBadge}>
+                    ★ Editor's Choice of the Month
                   </div>
 
-                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-white">
+                  <h3 className={styles.spotlightTitle}>
                     {featuredBook.title}
                   </h3>
 
-                  <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+                  <p className={styles.spotlightDesc}>
                     {featuredBook.description}
                   </p>
 
-                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-serif font-bold text-amber-400">
-                        G�{featuredBook.price}
+                  <div className={styles.spotlightBuyRow}>
+                    <div className={styles.spotlightPriceGroup}>
+                      <span className={styles.spotlightPrice}>
+                        ₹{featuredBook.price}
                       </span>
                       {featuredBook.originalPrice && (
-                        <span className="text-base text-slate-500 line-through">
-                          G�{featuredBook.originalPrice}
+                        <span className={styles.spotlightOriginalPrice}>
+                          ₹{featuredBook.originalPrice}
                         </span>
                       )}
                     </div>
 
                     <Link
                       href={`/book/${featuredBook.id}`}
-                      className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition-all hover:scale-105"
+                      className={styles.spotlightBtn}
                     >
-                      Read Book Summary & Buy G��
+                      Read Book Summary & Buy →
                     </Link>
                   </div>
                 </div>
@@ -140,17 +136,17 @@ export default function StorefrontHome() {
         )}
 
         {/* 5. Customer Testimonials */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
+        <section className={styles.container}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span className={styles.eyebrow} style={{ justifyContent: "center" }}>
               Reader Testimonials
             </span>
-            <h2 className="text-3xl font-serif font-bold text-gray-900 mt-1">
+            <h2 className={styles.sectionTitle}>
               Loved by Bookworms Across the Country
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className={styles.testimonialsGrid}>
             {[
               {
                 quote: "BookFlow has transformed how I buy books. The simulated checkout experience is swift, and the catalog is exceptionally well-curated!",
@@ -171,22 +167,22 @@ export default function StorefrontHome() {
                 rating: 5
               }
             ].map((t, idx) => (
-              <div key={idx} className="p-6 bg-white rounded-2xl border border-gray-200/80 shadow-sm space-y-4">
-                <div className="flex text-amber-500 gap-1">
+              <div key={idx} className={styles.testimonialCard}>
+                <div style={{ display: "flex", color: "#f59e0b", gap: 4 }}>
                   {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400 stroke-amber-400" />
+                    <Star key={i} style={{ width: 16, height: 16, fill: "#fbbf24", stroke: "#fbbf24" }} />
                   ))}
                 </div>
-                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic">
+                <p className={styles.quoteText}>
                   "{t.quote}"
                 </p>
-                <div className="pt-2 border-t border-gray-100 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-900 text-amber-400 font-bold text-xs flex items-center justify-center">
+                <div className={styles.authorRow}>
+                  <div className={styles.authorAvatar}>
                     {t.name[0]}
                   </div>
                   <div>
-                    <div className="text-xs font-bold text-gray-900">{t.name}</div>
-                    <div className="text-[11px] text-gray-500">{t.title}</div>
+                    <div className={styles.authorName}>{t.name}</div>
+                    <div className={styles.authorTitle}>{t.title}</div>
                   </div>
                 </div>
               </div>
@@ -201,4 +197,3 @@ export default function StorefrontHome() {
     </div>
   );
 }
-
