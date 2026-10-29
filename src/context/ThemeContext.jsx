@@ -1,5 +1,4 @@
-
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 
 const ThemeContext = createContext({
   theme: "light",
@@ -8,66 +7,23 @@ const ThemeContext = createContext({
 });
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState("light");
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
     try {
-      const storedTheme = localStorage.getItem("bookflow_theme");
-      if (storedTheme === "dark" || storedTheme === "light") {
-        setThemeState(storedTheme);
-        if (storedTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const initialTheme = prefersDark ? "dark" : "light";
-        setThemeState(initialTheme);
-        if (prefersDark) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
+      localStorage.setItem("bookflow_theme", "light");
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     } catch (e) {
-      console.error("Theme initialization error:", e);
-    } finally {
-      setMounted(true);
+      // ignore
     }
   }, []);
 
-  const setTheme = (newTheme) => {
-    setThemeState(newTheme);
-    try {
-      localStorage.setItem("bookflow_theme", newTheme);
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    } catch (e) {
-      console.error("Theme save error:", e);
-    }
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, mounted }}>
+    <ThemeContext.Provider value={{ theme: "light", toggleTheme: () => {}, setTheme: () => {}, mounted: true }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  return useContext(ThemeContext);
 }
-

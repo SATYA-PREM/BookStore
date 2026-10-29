@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import { ToastProvider } from "@/context/ToastContext";
-import { BookStoreProvider } from "@/context/BookStoreContext";
-import { ThemeProvider } from "@/context/ThemeContext";
 import CommandPalette from "@/components/ui/CommandPalette";
+import AuthModal from "@/components/auth/AuthModal";
+import ScrollToTop from "@/components/common/ScrollToTop";
 
 // Pages
 import HomePage from "@/app/page";
@@ -14,6 +13,7 @@ import CheckoutPage from "@/app/checkout/page";
 import OrdersPage from "@/app/orders/page";
 import SuccessPage from "@/app/success/page";
 import WishlistPage from "@/app/wishlist/page";
+import ProfilePage from "@/app/profile/page";
 
 // Seller Layout and Pages
 import SellerLayout from "@/app/seller/layout";
@@ -38,58 +38,39 @@ function SellerWrapper() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <BookStoreProvider>
-          <BrowserRouter>
-            <div className="antialiased min-h-screen bg-[#FDFBF7] dark:bg-[#0B0F19] text-gray-900 dark:text-gray-100 flex flex-col selection:bg-amber-500 selection:text-white transition-colors duration-300">
-              <Routes>
-                {/* Storefront Routes */}
-                <Route path="/" element={<HomePage />} />
-                <Route path="/books" element={<BooksCatalogPage />} />
-                <Route path="/book/:id" element={<BookDetailsPage />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/orders" element={<OrdersPage />} />
-                <Route path="/wishlist" element={<WishlistPage />} />
-                <Route path="/success" element={<SuccessPage />} />
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="antialiased min-h-screen bg-[#FDFBF7] text-gray-900 flex flex-col selection:bg-amber-500 selection:text-white transition-colors duration-300">
+        <Routes>
+          {/* Storefront Routes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/books" element={<BooksCatalogPage />} />
+          <Route path="/book/:id" element={<BookDetailsPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/success" element={<SuccessPage />} />
 
-                {/* Seller Dashboard Routes */}
-                <Route path="/seller" element={<SellerWrapper />}>
-                  <Route index element={<SellerDashboardPage />} />
-                  <Route path="analytics" element={<SellerAnalyticsPage />} />
-                  <Route path="books" element={<SellerBooksPage />} />
-                  <Route path="coupons" element={<SellerCouponsPage />} />
-                  <Route path="customers" element={<SellerCustomersPage />} />
-                  <Route path="inventory" element={<SellerInventoryPage />} />
-                  <Route path="orders" element={<SellerOrdersPage />} />
-                  <Route path="payments" element={<SellerPaymentsPage />} />
-                  <Route path="reviews" element={<SellerReviewsPage />} />
-                  <Route path="settings" element={<SellerSettingsPage />} />
-                </Route>
-                {/* Catch-all Not Found Route */}
-                <Route
-                  path="*"
-                  element={
-                    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center bg-[#FDFBF7] dark:bg-[#0B0F19]">
-                      <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-gray-100 mb-2">404 - Page Not Found</h1>
-                      <p className="text-gray-600 dark:text-gray-400 mb-6">The route you visited does not exist.</p>
-                      <a
-                        href="/"
-                        className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm transition-all"
-                      >
-                        Return to Storefront
-                      </a>
-                    </div>
-                  }
-                />
-              </Routes>
-              <CommandPalette />
-            </div>
-          </BrowserRouter>
-        </BookStoreProvider>
-      </ToastProvider>
-    </ThemeProvider>
+          {/* Seller Dashboard Routes */}
+          <Route path="/seller" element={<SellerWrapper />}>
+            <Route index element={<SellerDashboardPage />} />
+            <Route path="analytics" element={<SellerAnalyticsPage />} />
+            <Route path="books" element={<SellerBooksPage />} />
+            <Route path="coupons" element={<SellerCouponsPage />} />
+            <Route path="customers" element={<SellerCustomersPage />} />
+            <Route path="inventory" element={<SellerInventoryPage />} />
+            <Route path="orders" element={<SellerOrdersPage />} />
+            <Route path="payments" element={<SellerPaymentsPage />} />
+            <Route path="reviews" element={<SellerReviewsPage />} />
+            <Route path="settings" element={<SellerSettingsPage />} />
+          </Route>
+        </Routes>
+        
+        <CommandPalette />
+        <AuthModal />
+      </div>
+    </BrowserRouter>
   );
 }
-

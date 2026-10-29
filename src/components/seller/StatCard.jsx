@@ -1,6 +1,6 @@
-
 import React from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import styles from "./StatCard.module.css";
 
 export default function StatCard({
   title,
@@ -11,38 +11,31 @@ export default function StatCard({
   icon: Icon,
   color = "indigo"
 }) {
-  const colorStyles = {
-    indigo: "from-indigo-500/10 to-indigo-600/5 text-indigo-400 border-indigo-500/20",
-    emerald: "from-emerald-500/10 to-emerald-600/5 text-emerald-400 border-emerald-500/20",
-    amber: "from-amber-500/10 to-amber-600/5 text-amber-400 border-amber-500/20",
-    rose: "from-rose-500/10 to-rose-600/5 text-rose-400 border-rose-500/20"
-  };
-
   return (
-    <div className="p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition-all">
-      <div className="flex items-start justify-between">
+    <div className={styles.statCard}>
+      <div className={styles.topRow}>
         <div>
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">
+          <span className={styles.title}>
             {title}
           </span>
-          <div className="text-2xl sm:text-3xl font-serif font-bold text-white">
+          <div className={styles.value}>
             {value}
           </div>
         </div>
 
         {Icon && (
-          <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br flex items-center justify-center border shadow-inner ${colorStyles[color]}`}>
-            <Icon className="w-6 h-6" />
+          <div className={`${styles.iconContainer} ${styles[color] || styles.indigo}`}>
+            <Icon style={{ width: 24, height: 24 }} />
           </div>
         )}
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-        <div className="text-slate-400">{subtitle}</div>
+      <div className={styles.bottomRow}>
+        <div className={styles.subtitle}>{subtitle}</div>
 
         {change && (
-          <div className={`flex items-center gap-1 font-bold ${isPositive ? "text-emerald-400" : "text-rose-400"}`}>
-            {isPositive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+          <div className={`${styles.changeIndicator} ${isPositive ? styles.positive : styles.negative}`}>
+            {isPositive ? <TrendingUp style={{ width: 14, height: 14 }} /> : <TrendingDown style={{ width: 14, height: 14 }} />}
             <span>{change}</span>
           </div>
         )}
@@ -50,4 +43,3 @@ export default function StatCard({
     </div>
   );
 }
-

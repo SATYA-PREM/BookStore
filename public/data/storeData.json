@@ -22,7 +22,7 @@
       "description": "An easy and proven way to build good habits and break bad ones. No matter your goals, Atomic Habits offers a proven framework for improving every day.",
       "about": "James Clear, one of the world's leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
       "coverColor": "from-amber-600 to-orange-700",
-      "coverImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk001.svg",
       "lowStockThreshold": 10
     },
     {
@@ -47,7 +47,7 @@
       "description": "A magical story about following your dreams and listening to your heart.",
       "about": "Combining magic, mysticism, wisdom, and wonder into an inspiring tale of self-discovery, The Alchemist has become a modern classic, selling millions of copies around the world.",
       "coverColor": "from-orange-500 to-amber-600",
-      "coverImage": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk002.svg",
       "lowStockThreshold": 15
     },
     {
@@ -72,7 +72,7 @@
       "description": "What the rich teach their kids about money that the poor and middle class do not!",
       "about": "Rich Dad Poor Dad will explode the myth that you need to earn a high income to be rich and explain the difference between working for money and having your money work for you.",
       "coverColor": "from-purple-800 to-indigo-900",
-      "coverImage": "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk003.svg",
       "lowStockThreshold": 10
     },
     {
@@ -97,7 +97,7 @@
       "description": "The landmark bestseller now revised and updated for the 21st century.",
       "about": "Think and Grow Rich has been called the 'Granddaddy of All Motivational Literature.' It was the first book to boldly ask, 'What makes a winner?'",
       "coverColor": "from-emerald-700 to-teal-900",
-      "coverImage": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk004.svg",
       "lowStockThreshold": 8
     },
     {
@@ -122,7 +122,7 @@
       "description": "Unlock the miraculous powers of your subconscious mind to attain success and happiness.",
       "about": "Practical exercises and real-life success stories to harness mental strength, overcome mental blocks, and attract abundance.",
       "coverColor": "from-sky-700 to-blue-900",
-      "coverImage": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk005.svg",
       "lowStockThreshold": 10
     },
     {
@@ -147,7 +147,7 @@
       "description": "Timeless lessons on wealth, greed, and happiness doing well with money.",
       "about": "Money's greatest intrinsic value is its ability to give you control over your time. Morgan Housel shares 19 short stories exploring the strange ways people think about money.",
       "coverColor": "from-amber-700 to-yellow-900",
-      "coverImage": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk006.svg",
       "lowStockThreshold": 10
     },
     {
@@ -172,7 +172,7 @@
       "description": "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees.",
       "about": "A must-read handbook of software craftsmanship packed with case studies, principles, patterns, and practices of writing clean, maintainable code.",
       "coverColor": "from-blue-800 to-slate-900",
-      "coverImage": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk007.svg",
       "lowStockThreshold": 5
     },
     {
@@ -197,7 +197,7 @@
       "description": "Rules for focused success in a distracted world.",
       "about": "Deep work is the ability to focus without distraction on a cognitively demanding task. It's a skill that allows you to quickly master complicated information and produce better results in less time.",
       "coverColor": "from-red-800 to-rose-950",
-      "coverImage": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk008.svg",
       "lowStockThreshold": 8
     },
     {
@@ -222,7 +222,7 @@
       "description": "Discover your reason for being and live with purpose, peace, and longevity.",
       "about": "According to the Japanese, everyone has an ikigai—a reason for being. Finding it is the key to a happier and longer life.",
       "coverColor": "from-teal-700 to-emerald-900",
-      "coverImage": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk009.svg",
       "lowStockThreshold": 10
     },
     {
@@ -247,7 +247,7 @@
       "description": "From a renowned historian comes a groundbreaking narrative of humanity's creation and evolution.",
       "about": "One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there is only one—Homo sapiens. How did our species succeed in the battle for dominance?",
       "coverColor": "from-stone-800 to-amber-950",
-      "coverImage": "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&q=80&w=600",
+      "coverImage": "/images/books/book-bk010.svg",
       "lowStockThreshold": 10
     }
   ],
@@ -334,86 +334,6 @@
       "status": "active",
       "description": "20% off on large book bundles above ₹800",
       "expiryDate": "2026-11-30"
-    }
-  ],
-  "customers": [
-    {
-      "id": "CUS001",
-      "name": "Charvi Prasad",
-      "email": "charvi@example.com",
-      "phone": "+91 98765 43210",
-      "ordersCount": 12,
-      "totalSpent": 8420,
-      "lastOrderDate": "2026-09-03",
-      "status": "active",
-      "city": "Bengaluru"
-    },
-    {
-      "id": "CUS002",
-      "name": "Rahul Sharma",
-      "email": "rahul@example.com",
-      "phone": "+91 91234 56789",
-      "ordersCount": 5,
-      "totalSpent": 3150,
-      "lastOrderDate": "2026-09-02",
-      "status": "active",
-      "city": "New Delhi"
-    },
-    {
-      "id": "CUS003",
-      "name": "Priya Patel",
-      "email": "priya@example.com",
-      "phone": "+91 99887 66554",
-      "ordersCount": 3,
-      "totalSpent": 2680,
-      "lastOrderDate": "2026-09-03",
-      "status": "active",
-      "city": "Ahmedabad"
-    },
-    {
-      "id": "CUS004",
-      "name": "Ananya Sen",
-      "email": "ananya@example.com",
-      "phone": "+91 94321 09876",
-      "ordersCount": 8,
-      "totalSpent": 5490,
-      "lastOrderDate": "2026-08-29",
-      "status": "active",
-      "city": "Kolkata"
-    }
-  ],
-  "notifications": [
-    {
-      "id": "NOTIF-001",
-      "title": "New Order Received",
-      "message": "Order #BF-1024 has been placed by Charvi Prasad for ₹942.",
-      "type": "order",
-      "time": "10 mins ago",
-      "read": false
-    },
-    {
-      "id": "NOTIF-002",
-      "title": "Low Stock Alert",
-      "message": "Rich Dad Poor Dad has only 5 copies left in inventory.",
-      "type": "warning",
-      "time": "2 hours ago",
-      "read": false
-    },
-    {
-      "id": "NOTIF-003",
-      "title": "Payment Received",
-      "message": "Payment of ₹1,045 received for Order #BF-1022.",
-      "type": "payment",
-      "time": "5 hours ago",
-      "read": true
-    },
-    {
-      "id": "NOTIF-004",
-      "title": "5-Star Review Added",
-      "message": "Charvi left a 5-star review on Atomic Habits.",
-      "type": "review",
-      "time": "1 day ago",
-      "read": true
     }
   ],
   "orders": [
@@ -631,36 +551,50 @@
       ]
     }
   ],
-  "reviews": [
+  "customers": [
     {
-      "id": "REV001",
-      "bookId": "BK001",
-      "bookTitle": "Atomic Habits",
-      "customerName": "Charvi Prasad",
-      "rating": 5,
-      "date": "2026-09-01",
-      "comment": "Life-changing book! The 1% improvement framework is genuinely practical and well-structured.",
-      "status": "approved"
+      "id": "CUS001",
+      "name": "Charvi Prasad",
+      "email": "charvi@example.com",
+      "phone": "+91 98765 43210",
+      "ordersCount": 12,
+      "totalSpent": 8420,
+      "lastOrderDate": "2026-09-03",
+      "status": "active",
+      "city": "Bengaluru"
     },
     {
-      "id": "REV002",
-      "bookId": "BK002",
-      "bookTitle": "The Alchemist",
-      "customerName": "Ananya Sen",
-      "rating": 5,
-      "date": "2026-08-28",
-      "comment": "A beautiful philosophical fable. Fast delivery and high print quality from BookFlow.",
-      "status": "approved"
+      "id": "CUS002",
+      "name": "Rahul Sharma",
+      "email": "rahul@example.com",
+      "phone": "+91 91234 56789",
+      "ordersCount": 5,
+      "totalSpent": 3150,
+      "lastOrderDate": "2026-09-02",
+      "status": "active",
+      "city": "New Delhi"
     },
     {
-      "id": "REV003",
-      "bookId": "BK006",
-      "bookTitle": "The Psychology of Money",
-      "customerName": "Rahul Sharma",
-      "rating": 5,
-      "date": "2026-08-25",
-      "comment": "Must read for every young professional wanting to understand financial psychology.",
-      "status": "approved"
+      "id": "CUS003",
+      "name": "Priya Patel",
+      "email": "priya@example.com",
+      "phone": "+91 99887 66554",
+      "ordersCount": 3,
+      "totalSpent": 2680,
+      "lastOrderDate": "2026-09-03",
+      "status": "active",
+      "city": "Ahmedabad"
+    },
+    {
+      "id": "CUS004",
+      "name": "Ananya Sen",
+      "email": "ananya@example.com",
+      "phone": "+91 94321 09876",
+      "ordersCount": 8,
+      "totalSpent": 5490,
+      "lastOrderDate": "2026-08-29",
+      "status": "active",
+      "city": "Kolkata"
     }
   ],
   "transactions": [
@@ -700,6 +634,72 @@
       "status": "failed",
       "date": "2026-09-01 11:05",
       "failureReason": "Insufficient funds"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "REV001",
+      "bookId": "BK001",
+      "bookTitle": "Atomic Habits",
+      "customerName": "Charvi Prasad",
+      "rating": 5,
+      "date": "2026-09-01",
+      "comment": "Life-changing book! The 1% improvement framework is genuinely practical and well-structured.",
+      "status": "approved"
+    },
+    {
+      "id": "REV002",
+      "bookId": "BK002",
+      "bookTitle": "The Alchemist",
+      "customerName": "Ananya Sen",
+      "rating": 5,
+      "date": "2026-08-28",
+      "comment": "A beautiful philosophical fable. Fast delivery and high print quality from BookFlow.",
+      "status": "approved"
+    },
+    {
+      "id": "REV003",
+      "bookId": "BK006",
+      "bookTitle": "The Psychology of Money",
+      "customerName": "Rahul Sharma",
+      "rating": 5,
+      "date": "2026-08-25",
+      "comment": "Must read for every young professional wanting to understand financial psychology.",
+      "status": "approved"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "NOTIF-001",
+      "title": "New Order Received",
+      "message": "Order #BF-1024 has been placed by Charvi Prasad for ₹942.",
+      "type": "order",
+      "time": "10 mins ago",
+      "read": false
+    },
+    {
+      "id": "NOTIF-002",
+      "title": "Low Stock Alert",
+      "message": "Rich Dad Poor Dad has only 5 copies left in inventory.",
+      "type": "warning",
+      "time": "2 hours ago",
+      "read": false
+    },
+    {
+      "id": "NOTIF-003",
+      "title": "Payment Received",
+      "message": "Payment of ₹1,045 received for Order #BF-1022.",
+      "type": "payment",
+      "time": "5 hours ago",
+      "read": true
+    },
+    {
+      "id": "NOTIF-004",
+      "title": "5-Star Review Added",
+      "message": "Charvi left a 5-star review on Atomic Habits.",
+      "type": "review",
+      "time": "1 day ago",
+      "read": true
     }
   ],
   "settings": {

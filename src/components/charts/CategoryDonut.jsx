@@ -19,12 +19,12 @@ export default function CategoryDonut() {
   });
 
   return (
-    <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-sm space-y-4">
+    <div className="p-6 rounded-3xl bg-white border border-gray-200 shadow-sm space-y-4">
       <div>
-        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
           Distribution
         </span>
-        <h3 className="font-serif font-bold text-xl text-white mt-0.5">
+        <h3 className="font-serif font-bold text-xl text-gray-900 mt-0.5">
           Sales by Category
         </h3>
       </div>
@@ -45,11 +45,12 @@ export default function CategoryDonut() {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0F172A",
-                borderColor: "#334155",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#E2E8F0",
                 borderRadius: "12px",
-                color: "#F8FAFC",
-                fontSize: "12px"
+                color: "#0F172A",
+                fontSize: "12px",
+                boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)"
               }}
             />
           </PieChart>
@@ -63,7 +64,7 @@ export default function CategoryDonut() {
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: COLORS[idx % COLORS.length] }}
             />
-            <span className="text-slate-300 truncate">{d.name}</span>
+            <span className="text-gray-700 font-medium truncate">{d.name}</span>
           </div>
         ))}
       </div>

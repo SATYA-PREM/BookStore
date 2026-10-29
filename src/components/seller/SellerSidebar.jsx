@@ -1,7 +1,5 @@
-
 import React from "react";
-import { Link as Link } from "@/components/common/RouterAdapter";
-import { usePathname } from "@/components/common/RouterAdapter";
+import { Link, usePathname } from "@/components/common/RouterAdapter";
 import {
   LayoutDashboard,
   BookOpen,
@@ -15,14 +13,17 @@ import {
   Settings,
   Store,
   RotateCcw,
-  Sparkles,
-  ChevronRight
+  LogOut,
+  X
 } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
+import { useAdminAuth } from "@/context/AdminAuthContext";
+import styles from "./SellerSidebar.module.css";
 
 export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
   const pathname = usePathname();
   const { lowStockCount, orders, resetDemoData } = useBookStore();
+  const { adminUser, logoutAdmin } = useAdminAuth();
 
   const pendingOrdersCount = orders.filter((o) => o.orderStatus === "processing").length;
 
@@ -42,7 +43,8 @@ export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
           href: "/seller/inventory",
           icon: Boxes,
           badge: lowStockCount > 0 ? `${lowStockCount} low` : null,
-          badgeColor: "bg-amber-500/20 text-amber-300"
+          badgeColor: "#fbbf24",
+          badgeBg: "rgba(245, 158, 11, 0.2)"
         }
       ]
     },
@@ -50,147 +52,147 @@ export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
       label: "SALES & CRM",
       items: [
         {
-          name: "Orders Fulfillment",
+          name: "Orders & Fulfillment",
           href: "/seller/orders",
           icon: Package,
-          badge: pendingOrdersCount > 0 ? `${pendingOrdersCount}` : null,
-          badgeColor: "bg-indigo-500/30 text-indigo-200"
+          badge: pendingOrdersCount > 0 ? `${pendingOrdersCount} new` : null,
+          badgeColor: "#818cf8",
+          badgeBg: "rgba(99, 102, 241, 0.2)"
         },
-        { name: "Customers CRM", href: "/seller/customers", icon: Users },
-        { name: "Payments & Txns", href: "/seller/payments", icon: CreditCard },
-        { name: "Coupon Codes", href: "/seller/coupons", icon: Ticket }
+        { name: "Customers", href: "/seller/customers", icon: Users },
+        { name: "Analytics & Reports", href: "/seller/analytics", icon: BarChart3 }
       ]
     },
     {
-      label: "INSIGHTS",
+      label: "FINANCE & MARKETING",
       items: [
-        { name: "Revenue & Analytics", href: "/seller/analytics", icon: BarChart3 },
-        { name: "Customer Reviews", href: "/seller/reviews", icon: MessageSquare }
+        { name: "Payments & Txns", href: "/seller/payments", icon: CreditCard },
+        { name: "Coupons & Discounts", href: "/seller/coupons", icon: Ticket },
+        { name: "Reviews Moderation", href: "/seller/reviews", icon: MessageSquare }
       ]
     },
     {
-      label: "SYSTEM",
+      label: "PREFERENCES",
       items: [
         { name: "Store Settings", href: "/seller/settings", icon: Settings }
       ]
     }
   ];
 
-  const handleReset = () => {
-    if (confirm("Reset all store data, revenue, orders, inventory back to default demo state?")) {
-      resetDemoData();
-    }
-  };
+  const renderNavContent = () => (
+    <>
+      {/* Brand Header */}
+      <div className={styles.brandArea}>
+        <Link href="/seller" className={styles.brandLink}>
+          <div className={styles.brandIconBox}>
+            <LayoutDashboard style={{ width: 18, height: 18 }} />
+          </div>
+          <div className={styles.brandTextGroup}>
+            <span className={styles.brandTitle}>
+              BookFlow
+            </span>
+            <span className={styles.brandSubtitle}>SELLER HUB</span>
+          </div>
+        </Link>
+
+        {setIsMobileOpen && (
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg border-none bg-transparent cursor-pointer"
+          >
+            <X style={{ width: 20, height: 20 }} />
+          </button>
+        )}
+      </div>
+
+      {/* Admin User Mini Card */}
+      {adminUser && (
+        <div className={styles.adminCard}>
+          <div className={styles.adminInfo}>
+            <img
+              src={adminUser.avatar}
+              alt={adminUser.name}
+              className={styles.adminAvatar}
+            />
+            <div className={styles.adminText}>
+              <div className={styles.adminName}>{adminUser.name}</div>
+              <div className={styles.adminRole}>{adminUser.role}</div>
+            </div>
+          </div>
+          <button
+            onClick={logoutAdmin}
+            className={styles.logoutBtn}
+            title="Sign out of Admin"
+          >
+            <LogOut style={{ width: 15, height: 15 }} />
+          </button>
+        </div>
+      )}
+
+      {/* Nav List */}
+      <div className={styles.navScrollArea}>
+        {navGroups.map((group) => (
+          <div key={group.label} className={styles.navGroup}>
+            <span className={styles.groupLabel}>{group.label}</span>
+            <div className={styles.groupItems}>
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+                    className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
+                  >
+                    <Icon style={{ width: 17, height: 17, flexShrink: 0 }} />
+                    <span className={styles.navItemName}>{item.name}</span>
+                    {item.badge && (
+                      <span
+                        className={styles.badge}
+                        style={{ color: item.badgeColor, backgroundColor: item.badgeBg }}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.sidebarFooter}>
+        <Link href="/" className={styles.storefrontBtn}>
+          <Store style={{ width: 14, height: 14, color: "#f59e0b" }} />
+          <span>Switch to Storefront</span>
+        </Link>
+        <button
+          onClick={resetDemoData}
+          className={styles.storefrontBtn}
+          style={{ color: "#f43f5e", borderColor: "rgba(244, 63, 94, 0.2)" }}
+        >
+          <RotateCcw style={{ width: 14, height: 14 }} />
+          <span>Reset Demo Data</span>
+        </button>
+      </div>
+    </>
+  );
 
   return (
     <>
-      {/* Mobile Backdrop */}
-      {isMobileOpen && (
-        <div
-          onClick={() => setIsMobileOpen(false)}
-          className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden"
-        />
-      )}
-
-      <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-slate-950 border-r border-slate-800 flex flex-col justify-between transition-transform duration-300 lg:translate-x-0 ${
-          isMobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <div>
-          {/* Top Logo */}
-          <div className="p-6 border-b border-slate-800/80 flex items-center justify-between">
-            <Link href="/seller" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-indigo-700 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-900/50">
-                <LayoutDashboard className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-serif font-black text-white text-lg tracking-tight">
-                  Book<span className="text-amber-500">Flow</span>
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-400">
-                  Seller Center
-                </span>
-              </div>
-            </Link>
-          </div>
-
-          {/* Navigation Links */}
-          <nav className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-210px)]">
-            {navGroups.map((group, gIdx) => (
-              <div key={gIdx} className="space-y-1.5">
-                <div className="px-3 text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-                  {group.label}
-                </div>
-
-                {group.items.map((item) => {
-                  const Icon = item.icon;
-                  const isActive = pathname === item.href;
-
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setIsMobileOpen(false)}
-                      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
-                        isActive
-                          ? "bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-900/30"
-                          : "text-slate-300 hover:text-white hover:bg-slate-900"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
-                        <span>{item.name}</span>
-                      </div>
-
-                      {item.badge && (
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${item.badgeColor}`}>
-                          {item.badge}
-                        </span>
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
-            ))}
-          </nav>
-        </div>
-
-        {/* Bottom User & Storefront Switcher */}
-        <div className="p-4 border-t border-slate-800/80 bg-slate-950/80 space-y-3">
-          <Link
-            href="/"
-            className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-200 hover:text-white text-xs font-semibold transition-colors group"
-          >
-            <div className="flex items-center gap-2">
-              <Store className="w-4 h-4 text-amber-500" />
-              <span>Customer Storefront</span>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-
-          <div className="flex items-center justify-between text-xs pt-1">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-indigo-600/30 text-indigo-300 font-bold flex items-center justify-center text-xs">
-                S
-              </div>
-              <div className="truncate">
-                <div className="font-bold text-white text-[11px] truncate">Charvi Prasad</div>
-                <div className="text-[10px] text-slate-400">Store Admin</div>
-              </div>
-            </div>
-
-            <button
-              onClick={handleReset}
-              title="Reset Demo Data"
-              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-900 transition-colors"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
+      <aside className={styles.sidebarDesktop}>
+        {renderNavContent()}
       </aside>
+
+      {isMobileOpen && (
+        <div className={styles.backdropMobile}>
+          <div className={styles.sidebarMobile}>
+            {renderNavContent()}
+          </div>
+        </div>
+      )}
     </>
   );
 }
-

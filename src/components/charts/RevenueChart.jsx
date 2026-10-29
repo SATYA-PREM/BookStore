@@ -47,19 +47,19 @@ export default function RevenueChart() {
   const data = DATA_TIMEFRAMES[timeframe];
 
   return (
-    <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-sm space-y-6">
+    <div className="p-6 rounded-3xl bg-white border border-gray-200 shadow-sm space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+          <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
             Sales Performance
           </span>
-          <h3 className="font-serif font-bold text-xl text-white mt-0.5">
+          <h3 className="font-serif font-bold text-xl text-gray-900 mt-0.5">
             Revenue Analytics
           </h3>
         </div>
 
         {/* Timeframe selector pills */}
-        <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+        <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200">
           {["7D", "30D", "6M", "1Y"].map((tf) => (
             <button
               key={tf}
@@ -67,7 +67,7 @@ export default function RevenueChart() {
               className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
                 timeframe === tf
                   ? "bg-indigo-600 text-white shadow-sm"
-                  : "text-slate-400 hover:text-white"
+                  : "text-gray-600 hover:text-gray-900"
               }`}
             >
               {tf}
@@ -82,27 +82,28 @@ export default function RevenueChart() {
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366F1" stopOpacity={0.4} />
+                <stop offset="5%" stopColor="#6366F1" stopOpacity={0.25} />
                 <stop offset="95%" stopColor="#6366F1" stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
-            <XAxis dataKey="name" stroke="#64748B" fontSize={11} tickLine={false} />
-            <YAxis stroke="#64748B" fontSize={11} tickLine={false} tickFormatter={(val) => `₹${val / 1000}k`} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+            <XAxis dataKey="name" stroke="#94A3B8" fontSize={11} tickLine={false} />
+            <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} tickFormatter={(val) => `₹${val / 1000}k`} />
             <Tooltip
               contentStyle={{
-                backgroundColor: "#0F172A",
-                borderColor: "#334155",
+                backgroundColor: "#FFFFFF",
+                borderColor: "#E2E8F0",
                 borderRadius: "12px",
-                color: "#F8FAFC",
-                fontSize: "12px"
+                color: "#0F172A",
+                fontSize: "12px",
+                boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)"
               }}
               formatter={(val) => [`₹${val.toLocaleString("en-IN")}`, "Revenue"]}
             />
             <Area
               type="monotone"
               dataKey="revenue"
-              stroke="#818CF8"
+              stroke="#6366F1"
               strokeWidth={3}
               fillOpacity={1}
               fill="url(#revenueGrad)"

@@ -1,0 +1,227 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+}
+
+.container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 3rem 1.5rem;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+}
+
+.productCard {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+:global(.dark) .productCard {
+  background-color: #151d2f;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .productCard {
+    grid-template-columns: 5fr 7fr;
+    padding: 2.5rem;
+  }
+}
+
+.galleryCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coverFrame {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  border-radius: 1rem;
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(.dark) .coverFrame {
+  background-color: #0b0f19;
+}
+
+.coverImg {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.guaranteesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.guaranteeBox {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: #f9fafb;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:global(.dark) .guaranteeBox {
+  background-color: #0b0f19;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.categoryTag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+:global(.dark) .categoryTag {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+.bookTitle {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.25;
+}
+
+:global(.dark) .bookTitle {
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .bookTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.authorMeta {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.5rem;
+}
+
+:global(.dark) .authorMeta {
+  color: #94a3b8;
+}
+
+.priceBox {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background-color: #faf8f5;
+  border: 1px solid rgba(253, 230, 138, 0.6);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+:global(.dark) .priceBox {
+  background-color: #0b0f19;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.mainPrice {
+  font-size: 2.25rem;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  color: #111827;
+}
+
+:global(.dark) .mainPrice {
+  color: #ffffff;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.buyNowBtn {
+  padding: 0.875rem 2rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(to right, #f59e0b, #ea580c);
+  color: #020617;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.25);
+  transition: all 0.2s;
+}
+
+.buyNowBtn:hover {
+  background: linear-gradient(to right, #fbbf24, #f97316);
+  transform: scale(1.02);
+}
+
+.tabSection {
+  margin-top: 3rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+:global(.dark) .tabSection {
+  background-color: #151d2f;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 640px) {
+  .tabSection {
+    padding: 2.5rem;
+  }
+}
+

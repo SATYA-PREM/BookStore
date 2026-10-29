@@ -14,18 +14,9 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.dark body {
-  background-color: #0B0F19;
-  color: #F3F4F6;
-}
-
-/* Storefront light/dark background utility */
+/* Storefront light background utility */
 .storefront-bg {
   background-color: #FDFBF7;
-}
-
-html.dark .storefront-bg {
-  background-color: #0B0F19 !important;
 }
 
 /* Custom Scrollbars */
@@ -49,27 +40,21 @@ html.dark .storefront-bg {
 
 /* Glassmorphic Effects */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(229, 231, 235, 0.8);
-}
-
-.dark-glass {
-  background: rgba(17, 24, 39, 0.92);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Book 3D Spine and Hover Effects */
 .book-spine-effect {
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 .book-spine-effect:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.25), 0 10px 15px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
 }
 
 /* Animations */
@@ -111,4 +96,3 @@ html.dark .storefront-bg {
     color: black !important;
   }
 }
-

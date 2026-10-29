@@ -1,0 +1,134 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+}
+
+.container {
+  max-width: 48rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  flex: 1;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 4rem 1.5rem;
+  }
+}
+
+.successCard {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .successCard {
+    padding: 3rem;
+  }
+}
+
+.iconCircle {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  background-color: #ecfdf5;
+  color: #059669;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 2.25rem;
+  }
+}
+
+.orderPillBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0 auto;
+}
+
+.infoBox {
+  background-color: #f9fafb;
+  border-radius: 1rem;
+  border: 1px solid #f1f5f9;
+  padding: 1.25rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.primaryBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(to right, #f59e0b, #ea580c);
+  color: #020617;
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.primaryBtn:hover {
+  background: linear-gradient(to right, #fbbf24, #f97316);
+  transform: scale(1.02);
+}
+
+.secondaryBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.secondaryBtn:hover {
+  border-color: #111827;
+}
+
