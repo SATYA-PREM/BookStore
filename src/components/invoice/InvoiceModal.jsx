@@ -19,27 +19,27 @@ export default function InvoiceModal({ order, isOpen, onClose }) {
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-slide-up border border-slate-200 flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-slide-up border border-gray-200 flex flex-col max-h-[90vh]">
         
         {/* Top Header Controls */}
-        <div className="p-4 bg-slate-900 text-white flex items-center justify-between no-print">
+        <div className="p-4 bg-gray-50 border-b border-gray-200 text-gray-900 flex items-center justify-between no-print">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-amber-400" />
+            <BookOpen className="w-5 h-5 text-amber-600" />
             <span className="font-serif font-bold text-sm">Tax Invoice • #{order.id}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition-colors flex items-center gap-1.5 shadow-sm"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print / PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+              className="p-1.5 rounded-lg bg-gray-200 text-gray-700 hover:text-gray-900"
             >
               <X className="w-5 h-5" />
             </button>

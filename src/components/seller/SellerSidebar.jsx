@@ -13,14 +13,17 @@ import {
   Settings,
   Store,
   RotateCcw,
+  LogOut,
   X
 } from "lucide-react";
 import { useBookStore } from "@/context/BookStoreContext";
+import { useAdminAuth } from "@/context/AdminAuthContext";
 import styles from "./SellerSidebar.module.css";
 
 export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
   const pathname = usePathname();
   const { lowStockCount, orders, resetDemoData } = useBookStore();
+  const { adminUser, logoutAdmin } = useAdminAuth();
 
   const pendingOrdersCount = orders.filter((o) => o.orderStatus === "processing").length;
 
@@ -78,45 +81,75 @@ export default function SellerSidebar({ isMobileOpen, setIsMobileOpen }) {
 
   const renderNavContent = () => (
     <>
+      {/* Brand Header */}
       <div className={styles.brandArea}>
         <Link href="/seller" className={styles.brandLink}>
-          <div className={styles.brandLogoBox}>
+          <div className={styles.brandIconBox}>
             <LayoutDashboard style={{ width: 18, height: 18 }} />
           </div>
-          <div>
-            <div className={styles.brandTitle}>BookFlow</div>
-            <span className={styles.badgeSaaS}>Seller Hub</span>
+          <div className={styles.brandTextGroup}>
+            <span className={styles.brandTitle}>
+              BookFlow
+            </span>
+            <span className={styles.brandSubtitle}>SELLER HUB</span>
           </div>
         </Link>
-        {isMobileOpen && (
-          <button onClick={() => setIsMobileOpen(false)} style={{ color: "#94a3b8" }}>
+
+        {setIsMobileOpen && (
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg border-none bg-transparent cursor-pointer"
+          >
             <X style={{ width: 20, height: 20 }} />
           </button>
         )}
       </div>
 
-      <div className={styles.navContent}>
+      {/* Admin User Mini Card */}
+      {adminUser && (
+        <div className={styles.adminCard}>
+          <div className={styles.adminInfo}>
+            <img
+              src={adminUser.avatar}
+              alt={adminUser.name}
+              className={styles.adminAvatar}
+            />
+            <div className={styles.adminText}>
+              <div className={styles.adminName}>{adminUser.name}</div>
+              <div className={styles.adminRole}>{adminUser.role}</div>
+            </div>
+          </div>
+          <button
+            onClick={logoutAdmin}
+            className={styles.logoutBtn}
+            title="Sign out of Admin"
+          >
+            <LogOut style={{ width: 15, height: 15 }} />
+          </button>
+        </div>
+      )}
+
+      {/* Nav List */}
+      <div className={styles.navScrollArea}>
         {navGroups.map((group) => (
-          <div key={group.label}>
-            <div className={styles.groupLabel}>{group.label}</div>
+          <div key={group.label} className={styles.navGroup}>
+            <span className={styles.groupLabel}>{group.label}</span>
             <div className={styles.groupItems}>
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 return (
                   <Link
-                    key={item.href}
+                    key={item.name}
                     href={item.href}
-                    onClick={() => setIsMobileOpen(false)}
-                    className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
+                    onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
+                    className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
                   >
-                    <div className={styles.navLinkInner}>
-                      <Icon className={`${styles.navIcon} ${isActive ? styles.navIconActive : ""}`} />
-                      <span>{item.name}</span>
-                    </div>
+                    <Icon style={{ width: 17, height: 17, flexShrink: 0 }} />
+                    <span className={styles.navItemName}>{item.name}</span>
                     {item.badge && (
                       <span
-                        className={styles.badgeCounter}
+                        className={styles.badge}
                         style={{ color: item.badgeColor, backgroundColor: item.badgeBg }}
                       >
                         {item.badge}

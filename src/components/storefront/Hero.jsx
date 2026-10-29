@@ -58,7 +58,7 @@ export default function Hero() {
                 <div className={styles.metricLabel}>Happy Readers</div>
               </div>
               <div className={`${styles.metricItem} ${styles.metricItemBordered}`}>
-                <div className={styles.metricValue} style={{ color: "#fbbf24" }}>98%</div>
+                <div className={styles.metricValue} style={{ color: "#d97706" }}>98%</div>
                 <div className={styles.metricLabel}>5-Star Satisfaction</div>
               </div>
             </div>
@@ -105,17 +105,17 @@ export default function Hero() {
                 ₹
               </div>
               <div>
-                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#ffffff" }}>₹898 Payment Received</div>
-                <div style={{ fontSize: "0.6875rem", color: "#94a3b8" }}>Order #BF-1024 • Verified</div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#111827" }}>₹898 Payment Received</div>
+                <div style={{ fontSize: "0.6875rem", color: "#6b7280" }}>Order #BF-1024 • Verified</div>
               </div>
             </div>
 
             {/* Floating Card 2: Shipped Badge */}
             <div className={styles.floatingCard2}>
-              <CheckCircle style={{ width: 20, height: 20, color: "#818cf8" }} />
+              <CheckCircle style={{ width: 20, height: 20, color: "#4f46e5" }} />
               <div>
-                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#ffffff" }}>Order Packed & Shipped</div>
-                <div style={{ fontSize: "0.625rem", color: "#94a3b8" }}>Tracking #BF-1024</div>
+                <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#111827" }}>Order Packed & Shipped</div>
+                <div style={{ fontSize: "0.625rem", color: "#6b7280" }}>Tracking #BF-1024</div>
               </div>
             </div>
 

@@ -6,6 +6,7 @@ import Hero from "@/components/storefront/Hero";
 import CategoryGrid from "@/components/storefront/CategoryGrid";
 import BookCard from "@/components/storefront/BookCard";
 import QuickViewModal from "@/components/storefront/QuickViewModal";
+import SEOHead from "@/components/common/SEOHead";
 import { useBookStore } from "@/context/BookStoreContext";
 import { Sparkles, ArrowRight, Star } from "lucide-react";
 import styles from "./page.module.css";
@@ -30,6 +31,12 @@ export default function StorefrontHome() {
 
   return (
     <div className={styles.pageWrapper}>
+      <SEOHead
+        title="BookFlow — Premium Online BookStore & Literary Haven"
+        description="Explore thousands of bestselling books, fiction, self-help, business, technology, and literature with fast delivery and member discounts at BookFlow."
+        keywords="books online, bookstore, buy books, bestsellers, novel, reading, bookflow"
+        url="/"
+      />
       <Navbar />
 
       <main className={styles.mainContent}>

@@ -1,0 +1,109 @@
+.statCard {
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.statCard:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.topRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 800;
+  color: #111827;
+}
+
+@media (min-width: 640px) {
+  .value {
+    font-size: 1.875rem;
+  }
+}
+
+.iconContainer {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+}
+
+.indigo {
+  background: linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.05));
+  color: #818cf8;
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.emerald {
+  background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.amber {
+  background: linear-gradient(to bottom right, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.rose {
+  background: linear-gradient(to bottom right, rgba(244, 63, 94, 0.1), rgba(225, 29, 72, 0.05));
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.2);
+}
+
+.bottomRow {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(30, 41, 59, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.subtitle {
+  color: #94a3b8;
+}
+
+.changeIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+}
+
+.positive {
+  color: #34d399;
+}
+
+.negative {
+  color: #fb7185;
+}
+

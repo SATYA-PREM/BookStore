@@ -75,17 +75,17 @@ export default function SellerBooksPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-white">
+          <h1 className="text-3xl font-serif font-bold text-gray-900">
             Book Catalog Management
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
-            Real-time synchronization across storefront and saved directly in <code className="text-indigo-400 font-mono">public/data/books.json</code>.
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">
+            Real-time synchronization across storefront and saved directly in <code className="text-indigo-600 font-mono">public/data/books.json</code>.
           </p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         
         {/* Search */}
         <div className="relative w-full sm:w-80">
@@ -94,9 +94,9 @@ export default function SellerBooksPage() {
             placeholder="Search by title, author, ISBN..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-slate-950 text-xs text-white rounded-xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pl-9 pr-3 py-2 bg-gray-50 text-xs text-gray-900 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
           />
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
         </div>
 
         {/* Status Filter Tabs */}
@@ -113,7 +113,7 @@ export default function SellerBooksPage() {
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 statusFilter === tab.id
                   ? "bg-indigo-600 text-white shadow-sm"
-                  : "bg-slate-950 text-slate-400 hover:text-white"
+                  : "bg-gray-100 text-gray-600 hover:text-gray-900"
               }`}
             >
               {tab.label}
@@ -123,11 +123,11 @@ export default function SellerBooksPage() {
       </div>
 
       {/* Books Table */}
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/40 text-slate-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-gray-200 bg-gray-50 text-gray-500 font-bold uppercase tracking-wider">
                 <th className="py-3.5 px-4">Book</th>
                 <th className="py-3.5 px-4">Author</th>
                 <th className="py-3.5 px-4">Category</th>
@@ -138,42 +138,42 @@ export default function SellerBooksPage() {
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-gray-100">
               {filteredBooks.map((book) => {
                 const isLow = book.stock <= (book.lowStockThreshold || 10) && book.stock > 0;
                 const isOut = book.stock === 0;
 
                 return (
-                  <tr key={book.id} className="hover:bg-slate-850/60 transition-colors">
+                  <tr key={book.id} className="hover:bg-gray-50 transition-colors">
                     {/* Book */}
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={book.coverImage}
                           alt={book.title}
-                          className="w-9 h-12 object-cover rounded shadow bg-slate-950"
+                          className="w-9 h-12 object-cover rounded shadow bg-gray-100"
                         />
                         <div className="min-w-0">
-                          <div className="font-bold text-white truncate max-w-xs">{book.title}</div>
-                          <div className="text-[10px] text-slate-400 font-mono">ISBN: {book.isbn || "N/A"}</div>
+                          <div className="font-bold text-gray-900 truncate max-w-xs">{book.title}</div>
+                          <div className="text-[10px] text-gray-400 font-mono">ISBN: {book.isbn || "N/A"}</div>
                         </div>
                       </div>
                     </td>
 
                     {/* Author */}
-                    <td className="py-3 px-4 text-slate-300 font-medium">
+                    <td className="py-3 px-4 text-gray-700 font-medium">
                       {book.author}
                     </td>
 
                     {/* Category */}
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700 border border-gray-200">
                         {book.category}
                       </span>
                     </td>
 
                     {/* Price */}
-                    <td className="py-3 px-4 text-right font-serif font-bold text-white">
+                    <td className="py-3 px-4 text-right font-serif font-bold text-gray-900">
                       ₹{book.price}
                     </td>
 
@@ -182,10 +182,10 @@ export default function SellerBooksPage() {
                       <span
                         className={`font-mono font-bold px-2 py-0.5 rounded ${
                           isOut
-                            ? "bg-rose-500/20 text-rose-400"
+                            ? "bg-rose-100 text-rose-700"
                             : isLow
-                            ? "bg-amber-500/20 text-amber-400"
-                            : "text-slate-200"
+                            ? "bg-amber-100 text-amber-800"
+                            : "text-gray-900"
                         }`}
                       >
                         {book.stock}
@@ -193,22 +193,22 @@ export default function SellerBooksPage() {
                     </td>
 
                     {/* Sales */}
-                    <td className="py-3 px-4 text-center font-mono font-bold text-amber-400">
+                    <td className="py-3 px-4 text-center font-mono font-bold text-amber-600">
                       {book.sales || 0}
                     </td>
 
                     {/* Status */}
                     <td className="py-3 px-4 text-center">
                       {isOut ? (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
                           Out of Stock
                         </span>
                       ) : isLow ? (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
                           Low Stock
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                           Active
                         </span>
                       )}
@@ -219,7 +219,7 @@ export default function SellerBooksPage() {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => setEditingBook({ ...book })}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white"
+                          className="p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700"
                           title="Edit Book Details & Image"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -230,7 +230,7 @@ export default function SellerBooksPage() {
                               deleteBook(book.id);
                             }
                           }}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400"
+                          className="p-1.5 rounded-lg bg-gray-100 hover:bg-rose-50 text-gray-500 hover:text-rose-600"
                           title="Delete Book"
                         >
                           <Trash2 className="w-3.5 h-3.5" />

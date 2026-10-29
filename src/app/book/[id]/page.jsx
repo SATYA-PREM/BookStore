@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useRouter, Link } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import BookCard from "@/components/storefront/BookCard";
 import QuickViewModal from "@/components/storefront/QuickViewModal";
+import SEOHead from "@/components/common/SEOHead";
 import { useBookStore } from "@/context/BookStoreContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Star,
   ShoppingBag,
@@ -19,12 +21,20 @@ export default function BookDetailsPage() {
   const params = useParams();
   const router = useRouter();
   const { books, addToCart, toggleWishlist, isInWishlist, reviews } = useBookStore();
+  const { trackRecentlyVisited } = useAuth();
 
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("about");
 
   const book = books.find((b) => b.id === params.id) || books[0];
   const wishlisted = isInWishlist(book?.id);
+
+  // Track into Recently Visited
+  useEffect(() => {
+    if (book && book.id) {
+      trackRecentlyVisited(book);
+    }
+  }, [book?.id]);
 
   if (!book) {
     return (
@@ -52,8 +62,42 @@ export default function BookDetailsPage() {
     router.push("/cart");
   };
 
+  // Book Product Schema for Rich Results
+  const productSchema = book ? {
+    "@context": "https://schema.org",
+    "@type": ["Book", "Product"],
+    "name": book.title,
+    "image": book.coverImage?.startsWith("http") ? book.coverImage : `https://bookflow-store.com${book.coverImage}`,
+    "description": book.description || `Read ${book.title} by ${book.author} at BookFlow.`,
+    "isbn": book.isbn,
+    "author": {
+      "@type": "Person",
+      "name": book.author
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": book.price,
+      "priceCurrency": "INR",
+      "availability": book.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": book.rating || "4.8",
+      "reviewCount": book.reviewCount || 100
+    }
+  } : null;
+
   return (
     <div className={styles.pageWrapper}>
+      <SEOHead
+        title={`${book.title} by ${book.author} — Buy Online | BookFlow`}
+        description={book.description ? book.description.substring(0, 160) : `Buy ${book.title} written by ${book.author} on BookFlow.`}
+        image={book.coverImage}
+        url={`/book/${book.id}`}
+        type="book"
+        schema={productSchema}
+      />
       <Navbar />
 
       <main className={styles.container}>

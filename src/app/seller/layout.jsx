@@ -1,15 +1,31 @@
-
 import React, { useState } from "react";
 import SellerSidebar from "@/components/seller/SellerSidebar";
 import SellerHeader from "@/components/seller/SellerHeader";
 import AddBookModal from "@/components/seller/AddBookModal";
+import AdminLoginPage from "@/components/seller/AdminLoginPage";
+import { useAdminAuth } from "@/context/AdminAuthContext";
 
 export default function SellerLayout({ children }) {
+  const { isAdminAuthenticated, isInitialized } = useAdminAuth();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isAddBookOpen, setIsAddBookOpen] = useState(false);
 
+  // Loading state while checking localStorage
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-gray-500 font-mono text-xs">
+        Checking Admin Permissions...
+      </div>
+    );
+  }
+
+  // If not logged in as Admin, show the Admin Login Screen with 1-click Demo accounts
+  if (!isAdminAuthenticated) {
+    return <AdminLoginPage />;
+  }
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex">
+    <div className="min-h-screen bg-slate-50 text-gray-900 flex">
       {/* Sidebar Navigation */}
       <SellerSidebar
         isMobileOpen={isMobileOpen}
@@ -36,4 +52,3 @@ export default function SellerLayout({ children }) {
     </div>
   );
 }
-

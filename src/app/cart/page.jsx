@@ -3,18 +3,21 @@ import { Link, useRouter } from "@/components/common/RouterAdapter";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import { useBookStore } from "@/context/BookStoreContext";
+import { useAuth } from "@/context/AuthContext";
 import {
   Trash2,
   ShoppingBag,
   ArrowRight,
   Tag,
   ShieldCheck,
-  X
+  X,
+  Lock,
 } from "lucide-react";
 import styles from "./cart.module.css";
 
 export default function CartPage() {
   const router = useRouter();
+  const { isAuthenticated, setIsAuthModalOpen, setAuthModalMode } = useAuth();
   const {
     cart,
     updateCartQuantity,
@@ -216,10 +219,17 @@ export default function CartPage() {
             </div>
 
             <button
-              onClick={() => router.push("/checkout")}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  setAuthModalMode("login");
+                  setIsAuthModalOpen(true);
+                } else {
+                  router.push("/checkout");
+                }
+              }}
               className={styles.checkoutBtn}
             >
-              <span>Proceed to Checkout</span>
+              <span>{isAuthenticated ? "Proceed to Checkout" : "Sign In to Checkout"}</span>
               <ArrowRight style={{ width: 16, height: 16 }} />
             </button>
 

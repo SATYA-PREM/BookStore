@@ -4,6 +4,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import BookCard from "@/components/storefront/BookCard";
 import QuickViewModal from "@/components/storefront/QuickViewModal";
+import SEOHead from "@/components/common/SEOHead";
 import { useBookStore } from "@/context/BookStoreContext";
 import { Search, Filter, RotateCcw } from "lucide-react";
 import styles from "./books.module.css";
@@ -71,8 +72,18 @@ function BooksCatalogContent() {
     setSortBy("popular");
   };
 
+  const pageTitle = selectedCategory !== "all" 
+    ? `${selectedCategory} Books — Browse Catalog | BookFlow` 
+    : "Explore Books & Literary Bestsellers — Catalog | BookFlow";
+
   return (
     <div className={styles.pageWrapper}>
+      <SEOHead
+        title={pageTitle}
+        description={`Discover curated books in ${selectedCategory !== "all" ? selectedCategory : "all genres"} at BookFlow. Filter by rating, price, and author.`}
+        keywords={`books, ${selectedCategory}, buy books, book catalog, reading`}
+        url="/books"
+      />
       <Navbar />
 
       <main className={styles.container}>
