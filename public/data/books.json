@@ -1,5 +1,28 @@
 [
   {
+    "title": "xyz",
+    "author": "bb",
+    "category": "Self Help",
+    "price": 399,
+    "originalPrice": 599,
+    "rating": 5,
+    "reviewsCount": 0,
+    "coverImage": "/images/books/Screenshot_2026-04-05_212229-1793336069555.png",
+    "badge": "New Arrival",
+    "status": "published",
+    "stock": 45,
+    "lowStockThreshold": 10,
+    "isbn": "9780143452120",
+    "description": "about ",
+    "about": "life story",
+    "publishedYear": 2024,
+    "pages": 280,
+    "language": "English",
+    "publisher": "Penguin Random House",
+    "sales": 0,
+    "id": "BK012"
+  },
+  {
     "title": "dfhkjsad",
     "author": "asdf",
     "category": "Self Help",
