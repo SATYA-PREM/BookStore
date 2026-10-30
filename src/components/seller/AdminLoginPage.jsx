@@ -12,13 +12,15 @@ import {
   KeyRound,
   Store
 } from "lucide-react";
-import { useAdminAuth } from "@/context/AdminAuthContext";
+import { useAdminAuth, DEMO_ADMIN_ACCOUNTS } from "@/context/AdminAuthContext";
 
 export default function AdminLoginPage() {
-  const { loginAdmin, DEMO_ADMIN_ACCOUNTS } = useAdminAuth();
+  const { loginAdmin } = useAdminAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const accountsList = DEMO_ADMIN_ACCOUNTS || [];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +32,7 @@ export default function AdminLoginPage() {
   };
 
   const quickDemoLogin = (index) => {
-    const acc = DEMO_ADMIN_ACCOUNTS[index];
+    const acc = accountsList[index];
     if (acc) {
       setEmail(acc.email);
       setPassword(acc.password);
@@ -151,7 +153,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="grid grid-cols-1 gap-2">
-              {DEMO_ADMIN_ACCOUNTS.map((acc, index) => (
+              {accountsList.map((acc, index) => (
                 <button
                   key={acc.id}
                   type="button"
