@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useBookStore } from "@/context/BookStoreContext";
 import { Ticket, Plus, Tag, CheckCircle2, XCircle, Trash2, Calendar } from "lucide-react";
@@ -42,10 +41,10 @@ export default function SellerCouponsPage() {
     <div className="space-y-6 max-w-7xl mx-auto animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-white">
+          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
             Promotional Coupons & Discounts
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
             Create discount coupon codes that customers can apply in their shopping cart.
           </p>
         </div>
@@ -69,20 +68,20 @@ export default function SellerCouponsPage() {
               key={c.id}
               className={`p-6 rounded-3xl border transition-all ${
                 isActive
-                  ? "bg-slate-900 border-slate-800 shadow-md"
-                  : "bg-slate-900/60 border-slate-800/60 opacity-60"
+                  ? "bg-white dark:bg-slate-900 border-gray-200 dark:border-slate-800 shadow-sm"
+                  : "bg-gray-50 dark:bg-slate-900/60 border-gray-200 dark:border-slate-800/60 opacity-60"
               }`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400">
+                  <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
                     <Ticket className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-mono font-black text-lg text-amber-400 tracking-wider">
+                    <span className="font-mono font-black text-lg text-amber-600 dark:text-amber-400 tracking-wider">
                       {c.code}
                     </span>
-                    <span className="text-[10px] text-slate-400 block">
+                    <span className="text-[10px] text-gray-500 dark:text-slate-400 block font-medium">
                       {c.discountType === "percentage" ? `${c.discountValue}% OFF` : `₹${c.discountValue} FLAT OFF`}
                     </span>
                   </div>
@@ -92,26 +91,26 @@ export default function SellerCouponsPage() {
                   onClick={() => toggleCouponStatus(c.id)}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-bold border transition-colors ${
                     isActive
-                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                      : "bg-slate-800 text-slate-400 border-slate-700"
+                      ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                      : "bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 border-gray-200 dark:border-slate-700"
                   }`}
                 >
                   {isActive ? "ACTIVE" : "PAUSED"}
                 </button>
               </div>
 
-              <p className="text-xs text-slate-300 mt-4 leading-relaxed">
+              <p className="text-xs text-gray-600 dark:text-slate-300 mt-4 leading-relaxed">
                 {c.description || `Get discount on orders above ₹${c.minOrder}`}
               </p>
 
-              <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-2 text-xs text-slate-400">
+              <div className="mt-4 pt-3 border-t border-gray-100 dark:border-slate-800/80 space-y-2 text-xs text-gray-500 dark:text-slate-400">
                 <div className="flex justify-between">
                   <span>Minimum Order:</span>
-                  <span className="font-bold text-white">₹{c.minOrder}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">₹{c.minOrder}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Redemption Usage:</span>
-                  <span className="font-mono font-bold text-indigo-400">{c.usedCount} / {c.usageLimit}</span>
+                  <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{c.usedCount} / {c.usageLimit}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Valid Until:</span>
@@ -125,30 +124,30 @@ export default function SellerCouponsPage() {
 
       {/* Create Coupon Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs text-white">
-            <h3 className="text-lg font-serif font-bold text-white">Create New Coupon</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs text-gray-900 dark:text-white transition-colors">
+            <h3 className="text-lg font-serif font-bold text-gray-900 dark:text-white">Create New Coupon</h3>
 
             <form onSubmit={handleCreate} className="space-y-3">
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Coupon Code *</label>
+                <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Coupon Code *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. FESTIVE25"
                   value={formData.code}
                   onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 uppercase font-mono rounded-xl text-white"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 uppercase font-mono rounded-xl text-gray-900 dark:text-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Type</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Type</label>
                   <select
                     value={formData.discountType}
                     onChange={(e) => setFormData({ ...formData, discountType: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed Flat (₹)</option>
@@ -156,47 +155,47 @@ export default function SellerCouponsPage() {
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Discount Value *</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Discount Value *</label>
                   <input
                     type="number"
                     required
                     value={formData.discountValue}
                     onChange={(e) => setFormData({ ...formData, discountValue: Number(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white font-mono"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Min Order (₹)</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Min Order (₹)</label>
                   <input
                     type="number"
                     value={formData.minOrder}
                     onChange={(e) => setFormData({ ...formData, minOrder: Number(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Max Cap (₹)</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Max Cap (₹)</label>
                   <input
                     type="number"
                     value={formData.maxDiscount}
                     onChange={(e) => setFormData({ ...formData, maxDiscount: Number(e.target.value) })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white font-mono"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Description</label>
+                <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Description</label>
                 <input
                   type="text"
                   placeholder="e.g. 15% off for all weekend readers"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                 />
               </div>
 
@@ -204,7 +203,7 @@ export default function SellerCouponsPage() {
                 <button
                   type="button"
                   onClick={() => setIsCreateModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300"
+                  className="px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300"
                 >
                   Cancel
                 </button>
@@ -223,4 +222,3 @@ export default function SellerCouponsPage() {
     </div>
   );
 }
-

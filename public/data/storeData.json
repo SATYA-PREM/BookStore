@@ -1,6 +1,29 @@
 {
   "books": [
     {
+      "title": "dfhkjsad",
+      "author": "asdf",
+      "category": "Self Help",
+      "price": 499,
+      "originalPrice": 699,
+      "stock": 25,
+      "lowStockThreshold": 10,
+      "isbn": "9784925506221",
+      "publisher": "Penguin Random House",
+      "pages": 320,
+      "language": "English",
+      "format": "Paperback",
+      "badge": "New Release",
+      "description": "",
+      "about": "",
+      "coverImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3OQ_XJzJNlbG5N3ZRAc3qfZMyir1E803UL5csrMKfKg&s=10",
+      "id": "BK011",
+      "rating": 5,
+      "reviewsCount": 0,
+      "sales": 0,
+      "status": "published"
+    },
+    {
       "id": "BK001",
       "title": "Atomic Habits",
       "author": "James Clear",

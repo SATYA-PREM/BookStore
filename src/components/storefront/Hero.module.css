@@ -553,3 +553,109 @@
     max-width: 100%;
   }
 }
+
+
+/* =========================================================
+   DARK MODE OVERRIDES
+========================================================= */
+:global(.dark) .heroSection {
+  background: linear-gradient(to bottom, #0b0f19, #090d16 60%, #060911);
+  color: #f9fafb;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:global(.dark) .ambientLightAmber {
+  background-color: rgba(245, 158, 11, 0.12);
+}
+
+:global(.dark) .ambientLightIndigo {
+  background-color: rgba(99, 102, 241, 0.15);
+}
+
+:global(.dark) .pillBadge {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+}
+
+:global(.dark) .heading {
+  color: #ffffff;
+}
+
+:global(.dark) .headingGradient {
+  background: linear-gradient(to right, #fbbf24, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.dark) .subheading {
+  color: #94a3b8;
+}
+
+:global(.dark) .secondaryBtn {
+  background-color: rgba(17, 24, 39, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f3f4f6;
+}
+
+:global(.dark) .secondaryBtn:hover {
+  background-color: #1e293b;
+  border-color: #818cf8;
+  color: #ffffff;
+}
+
+:global(.dark) .metricsRow {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .metricItemBordered {
+  border-left-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .metricValue {
+  color: #ffffff;
+}
+
+:global(.dark) .metricLabel {
+  color: #64748b;
+}
+
+:global(.dark) .spotlightCard {
+  background: #0f172a;
+  border-color: #1e293b;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+:global(.dark) .spotlightHeader {
+  border-bottom-color: #1e293b;
+}
+
+:global(.dark) .spotlightPill {
+  color: #fbbf24;
+}
+
+:global(.dark) .spotlightPrice {
+  color: #94a3b8;
+}
+
+:global(.dark) .spotlightFooter {
+  color: #94a3b8;
+}
+
+:global(.dark) .stockBadge {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+:global(.dark) .floatingCard1,
+:global(.dark) .floatingCard2 {
+  background-color: #0f172a;
+  border-color: #1e293b;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+:global(.dark) .currencyIconBox {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}

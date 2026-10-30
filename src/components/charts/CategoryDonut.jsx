@@ -1,12 +1,16 @@
+"use client";
 
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { useBookStore } from "@/context/BookStoreContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const COLORS = ["#6366F1", "#F59E0B", "#10B981", "#3B82F6", "#EC4899", "#8B5CF6"];
 
 export default function CategoryDonut() {
   const { categories, books } = useBookStore();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const data = categories.map((cat) => {
     const totalSales = books
@@ -19,12 +23,12 @@ export default function CategoryDonut() {
   });
 
   return (
-    <div className="p-6 rounded-3xl bg-white border border-gray-200 shadow-sm space-y-4">
+    <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-sm space-y-4 transition-colors">
       <div>
-        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+        <span className="text-xs font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">
           Distribution
         </span>
-        <h3 className="font-serif font-bold text-xl text-gray-900 mt-0.5">
+        <h3 className="font-serif font-bold text-xl text-gray-900 dark:text-white mt-0.5">
           Sales by Category
         </h3>
       </div>
@@ -45,12 +49,12 @@ export default function CategoryDonut() {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "#FFFFFF",
-                borderColor: "#E2E8F0",
+                backgroundColor: isDark ? "#0F172A" : "#FFFFFF",
+                borderColor: isDark ? "#1E293B" : "#E2E8F0",
                 borderRadius: "12px",
-                color: "#0F172A",
+                color: isDark ? "#FFFFFF" : "#0F172A",
                 fontSize: "12px",
-                boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)"
+                boxShadow: "0 10px 15px -3px rgba(0,0,0,0.3)"
               }}
             />
           </PieChart>
@@ -64,11 +68,10 @@ export default function CategoryDonut() {
               className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: COLORS[idx % COLORS.length] }}
             />
-            <span className="text-gray-700 font-medium truncate">{d.name}</span>
+            <span className="text-gray-700 dark:text-slate-300 font-medium truncate">{d.name}</span>
           </div>
         ))}
       </div>
     </div>
   );
 }
-

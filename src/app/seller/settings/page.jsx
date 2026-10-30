@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useBookStore } from "@/context/BookStoreContext";
 import { Settings, Store, RotateCcw, ShieldCheck, Save, Sparkles, Building2 } from "lucide-react";
@@ -36,113 +35,113 @@ export default function SellerSettingsPage() {
   return (
     <div className="space-y-8 max-w-4xl mx-auto animate-fade-in text-xs">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-white">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
           Store Settings & Configuration
         </h1>
-        <p className="text-slate-400 mt-1">
+        <p className="text-gray-500 dark:text-slate-400 mt-1">
           Configure your bookstore profile, tax rates, shipping rules, and local demo environment.
         </p>
       </div>
 
       {savedSuccess && (
-        <div className="p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500/30 text-emerald-300 flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4" />
+        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>Store settings saved successfully to browser storage!</span>
         </div>
       )}
 
       {/* Main Settings Form */}
-      <form onSubmit={handleSave} className="bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6 shadow-sm">
-        <h2 className="font-serif font-bold text-lg text-white pb-3 border-b border-slate-800 flex items-center gap-2">
-          <Store className="w-4 h-4 text-indigo-400" />
+      <form onSubmit={handleSave} className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-gray-200 dark:border-slate-800 space-y-6 shadow-sm transition-colors">
+        <h2 className="font-serif font-bold text-lg text-gray-900 dark:text-white pb-3 border-b border-gray-100 dark:border-slate-800 flex items-center gap-2">
+          <Store className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
           Store Profile & Contact
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block font-bold text-slate-300 mb-1">Store Name</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Store Name</label>
             <input
               type="text"
               value={formData.storeName}
               onChange={(e) => setFormData({ ...formData, storeName: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-300 mb-1">Tagline</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Tagline</label>
             <input
               type="text"
               value={formData.tagline}
               onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-300 mb-1">Support Email</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Support Email</label>
             <input
               type="email"
               value={formData.storeEmail}
               onChange={(e) => setFormData({ ...formData, storeEmail: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-300 mb-1">Support Phone</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Support Phone</label>
             <input
               type="text"
               value={formData.storePhone}
               onChange={(e) => setFormData({ ...formData, storePhone: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block font-bold text-slate-300 mb-1">Store Physical / Registered Address</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Store Physical / Registered Address</label>
             <input
               type="text"
               value={formData.storeAddress}
               onChange={(e) => setFormData({ ...formData, storeAddress: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
 
-        <h2 className="font-serif font-bold text-lg text-white pt-4 pb-3 border-b border-slate-800 flex items-center gap-2">
-          <Building2 className="w-4 h-4 text-amber-400" />
+        <h2 className="font-serif font-bold text-lg text-gray-900 dark:text-white pt-4 pb-3 border-b border-gray-100 dark:border-slate-800 flex items-center gap-2">
+          <Building2 className="w-4 h-4 text-amber-600 dark:text-amber-400" />
           Taxation & Shipping Policy
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="block font-bold text-slate-300 mb-1">GST / Tax Identification</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">GST / Tax Identification</label>
             <input
               type="text"
               value={formData.gstin}
               onChange={(e) => setFormData({ ...formData, gstin: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-300 mb-1">GST Tax Rate (%)</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">GST Tax Rate (%)</label>
             <input
               type="number"
               value={formData.taxRate}
               onChange={(e) => setFormData({ ...formData, taxRate: Number(e.target.value) })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-300 mb-1">Free Shipping Min Order (₹)</label>
+            <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Free Shipping Min Order (₹)</label>
             <input
               type="number"
               value={formData.freeShippingThreshold}
               onChange={(e) => setFormData({ ...formData, freeShippingThreshold: Number(e.target.value) })}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -159,12 +158,12 @@ export default function SellerSettingsPage() {
       </form>
 
       {/* Demo Controls & Reset Section */}
-      <div className="p-6 rounded-3xl bg-rose-950/20 border border-rose-900/40 space-y-4">
-        <div className="flex items-center gap-2 text-rose-400 font-bold">
+      <div className="p-6 rounded-3xl bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 space-y-4">
+        <div className="flex items-center gap-2 text-rose-700 dark:text-rose-400 font-bold">
           <RotateCcw className="w-4 h-4" />
           <span>Demo Environment Reset</span>
         </div>
-        <p className="text-slate-400">
+        <p className="text-gray-600 dark:text-slate-400">
           Reset all orders, active cart, transactions, customer profiles, and restocked books back to the clean initial demo dataset.
         </p>
         <button
@@ -178,4 +177,3 @@ export default function SellerSettingsPage() {
     </div>
   );
 }
-

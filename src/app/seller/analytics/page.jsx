@@ -1,4 +1,3 @@
-
 import React from "react";
 import RevenueChart from "@/components/charts/RevenueChart";
 import CategoryDonut from "@/components/charts/CategoryDonut";
@@ -21,10 +20,10 @@ export default function SellerAnalyticsPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto animate-fade-in">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-white">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
           Sales & Commercial Analytics
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
           Deep telemetry on revenue trends, average order value, reader retention, and genre distribution.
         </p>
       </div>
@@ -84,31 +83,30 @@ export default function SellerAnalyticsPage() {
       </div>
 
       {/* Customer Growth & Retention Summary */}
-      <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-sm space-y-4">
-        <h3 className="font-serif font-bold text-xl text-white">
+      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-sm space-y-4 transition-colors">
+        <h3 className="font-serif font-bold text-xl text-gray-900 dark:text-white">
           Customer Cohort Insights
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-            <span className="text-slate-400">New Readers (This Month)</span>
-            <div className="text-2xl font-bold font-serif text-white">84 Readers</div>
-            <span className="text-emerald-400 text-[11px]">+14% acquisition growth</span>
+          <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 space-y-1">
+            <span className="text-gray-500 dark:text-slate-400">New Readers (This Month)</span>
+            <div className="text-2xl font-bold font-serif text-gray-900 dark:text-white">84 Readers</div>
+            <span className="text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">+14% acquisition growth</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-            <span className="text-slate-400">Returning Customer Ratio</span>
-            <div className="text-2xl font-bold font-serif text-indigo-400">61%</div>
-            <span className="text-slate-500 text-[11px]">2+ book purchases per user</span>
+          <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 space-y-1">
+            <span className="text-gray-500 dark:text-slate-400">Returning Customer Ratio</span>
+            <div className="text-2xl font-bold font-serif text-indigo-600 dark:text-indigo-400">61%</div>
+            <span className="text-gray-400 dark:text-slate-500 text-[11px]">2+ book purchases per user</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-1">
-            <span className="text-slate-400">Purchase Frequency</span>
-            <div className="text-2xl font-bold font-serif text-amber-400">18.4 Days</div>
-            <span className="text-slate-500 text-[11px]">Average return interval</span>
+          <div className="p-4 rounded-2xl bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 space-y-1">
+            <span className="text-gray-500 dark:text-slate-400">Purchase Frequency</span>
+            <div className="text-2xl font-bold font-serif text-amber-600 dark:text-amber-400">18.4 Days</div>
+            <span className="text-gray-400 dark:text-slate-500 text-[11px]">Average return interval</span>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useBookStore } from "@/context/BookStoreContext";
 import {
@@ -42,52 +41,52 @@ export default function SellerPaymentsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto animate-fade-in">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-white">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
           Payment Transactions & Gateway Ledger
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
           Review simulated credit card authorizations, UPI transactions, settlements, and failed payment logs.
         </p>
       </div>
 
       {/* Top 3 Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
-          <span className="text-slate-400 uppercase tracking-wider block font-bold">Successful Settlements</span>
-          <span className="text-2xl font-serif font-bold text-emerald-400 mt-1 block">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-xs shadow-sm transition-colors">
+          <span className="text-gray-500 dark:text-slate-400 uppercase tracking-wider block font-bold">Successful Settlements</span>
+          <span className="text-2xl font-serif font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">
             ₹{(76420 + successfulTotal).toLocaleString("en-IN")}
           </span>
-          <span className="text-slate-500 mt-1 block">Client-side verified</span>
+          <span className="text-gray-400 dark:text-slate-500 mt-1 block">Client-side verified</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
-          <span className="text-slate-400 uppercase tracking-wider block font-bold">Total Transactions</span>
-          <span className="text-2xl font-serif font-bold text-indigo-400 mt-1 block">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-xs shadow-sm transition-colors">
+          <span className="text-gray-500 dark:text-slate-400 uppercase tracking-wider block font-bold">Total Transactions</span>
+          <span className="text-2xl font-serif font-bold text-indigo-600 dark:text-indigo-400 mt-1 block">
             {184 + transactions.length}
           </span>
-          <span className="text-slate-500 mt-1 block">Cards, UPI & Netbanking</span>
+          <span className="text-gray-400 dark:text-slate-500 mt-1 block">Cards, UPI & Netbanking</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
-          <span className="text-slate-400 uppercase tracking-wider block font-bold">Failed Authorizations</span>
-          <span className="text-2xl font-serif font-bold text-rose-400 mt-1 block">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-xs shadow-sm transition-colors">
+          <span className="text-gray-500 dark:text-slate-400 uppercase tracking-wider block font-bold">Failed Authorizations</span>
+          <span className="text-2xl font-serif font-bold text-rose-600 dark:text-rose-400 mt-1 block">
             ₹{(2830 + failedTotal).toLocaleString("en-IN")}
           </span>
-          <span className="text-slate-500 mt-1 block">Card declines / insufficient funds</span>
+          <span className="text-gray-400 dark:text-slate-500 mt-1 block">Card declines / insufficient funds</span>
         </div>
       </div>
 
       {/* Filter and Search */}
-      <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm transition-colors">
         <div className="relative max-w-sm w-full">
           <input
             type="text"
             placeholder="Search Transaction ID, Order #, Customer..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-slate-950 text-xs text-white rounded-xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-slate-950 text-xs text-gray-900 dark:text-white rounded-xl border border-gray-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500"
           />
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-gray-400 dark:text-slate-400 absolute left-3 top-2.5" />
         </div>
 
         <div className="flex gap-2">
@@ -98,7 +97,7 @@ export default function SellerPaymentsPage() {
               className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
                 statusFilter === st
                   ? "bg-indigo-600 text-white shadow-sm"
-                  : "bg-slate-950 text-slate-400 hover:text-white"
+                  : "bg-gray-100 dark:bg-slate-950 text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               {st}
@@ -108,11 +107,11 @@ export default function SellerPaymentsPage() {
       </div>
 
       {/* Transactions Table */}
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-gray-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/40 text-slate-400 font-bold uppercase tracking-wider">
+              <tr className="border-b border-gray-200 dark:border-slate-800 bg-gray-50/80 dark:bg-slate-950/40 text-gray-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3.5 px-4">Transaction ID</th>
                 <th className="py-3.5 px-4">Order Ref</th>
                 <th className="py-3.5 px-4">Customer</th>
@@ -122,42 +121,42 @@ export default function SellerPaymentsPage() {
                 <th className="py-3.5 px-4 text-right">Date & Time</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
               {filtered.map((txn) => (
-                <tr key={txn.id} className="hover:bg-slate-850/60 transition-colors">
-                  <td className="py-3.5 px-4 font-mono font-bold text-indigo-300">
+                <tr key={txn.id} className="hover:bg-gray-50 dark:hover:bg-slate-850/60 transition-colors">
+                  <td className="py-3.5 px-4 font-mono font-bold text-indigo-600 dark:text-indigo-300">
                     {txn.id}
                   </td>
 
-                  <td className="py-3.5 px-4 font-mono text-slate-300">
+                  <td className="py-3.5 px-4 font-mono text-gray-600 dark:text-slate-300">
                     #{txn.orderId}
                   </td>
 
-                  <td className="py-3.5 px-4 font-bold text-white">
+                  <td className="py-3.5 px-4 font-bold text-gray-900 dark:text-white">
                     {txn.customerName}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right font-serif font-bold text-white text-sm">
+                  <td className="py-3.5 px-4 text-right font-serif font-bold text-gray-900 dark:text-white text-sm">
                     ₹{txn.amount?.toLocaleString("en-IN")}
                   </td>
 
-                  <td className="py-3.5 px-4 text-slate-300">
+                  <td className="py-3.5 px-4 text-gray-600 dark:text-slate-300">
                     {txn.method}
                   </td>
 
                   <td className="py-3.5 px-4 text-center">
                     {txn.status === "successful" ? (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                         SUCCESSFUL
                       </span>
                     ) : (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
                         FAILED
                       </span>
                     )}
                   </td>
 
-                  <td className="py-3.5 px-4 text-right text-slate-400">
+                  <td className="py-3.5 px-4 text-right text-gray-500 dark:text-slate-400">
                     {txn.date}
                   </td>
                 </tr>
@@ -170,4 +169,3 @@ export default function SellerPaymentsPage() {
     </div>
   );
 }
-

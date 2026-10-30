@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useBookStore } from "@/context/BookStoreContext";
 import { Star, MessageSquare, CheckCircle, Trash2, Search } from "lucide-react";
@@ -15,10 +14,10 @@ export default function SellerReviewsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto animate-fade-in">
       <div>
-        <h1 className="text-3xl font-serif font-bold text-white">
+        <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
           Customer Reviews & Feedback Moderation
         </h1>
-        <p className="text-xs sm:text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
           Moderate verified reader reviews, ratings, and reader testimonials across your bookstore.
         </p>
       </div>
@@ -32,7 +31,7 @@ export default function SellerReviewsPage() {
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
               filterRating === star
                 ? "bg-indigo-600 text-white shadow-sm"
-                : "bg-slate-900 text-slate-400 hover:text-white"
+                : "bg-white dark:bg-slate-900 text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white border border-gray-200 dark:border-slate-800"
             }`}
           >
             {star === "all" ? "All Stars" : `${star} Star Reviews`}
@@ -45,13 +44,13 @@ export default function SellerReviewsPage() {
         {filtered.map((rev) => (
           <div
             key={rev.id}
-            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4"
+            className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4 transition-colors"
           >
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-white">{rev.customerName}</span>
-                <span className="text-slate-500 text-xs">• {rev.date}</span>
-                <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 text-[10px] font-bold">
+                <span className="font-bold text-sm text-gray-900 dark:text-white">{rev.customerName}</span>
+                <span className="text-gray-400 dark:text-slate-500 text-xs">• {rev.date}</span>
+                <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold">
                   on "{rev.bookTitle}"
                 </span>
               </div>
@@ -62,18 +61,18 @@ export default function SellerReviewsPage() {
                 ))}
               </div>
 
-              <p className="text-xs text-slate-300 italic leading-relaxed max-w-2xl">
+              <p className="text-xs text-gray-600 dark:text-slate-300 italic leading-relaxed max-w-2xl">
                 "{rev.comment}"
               </p>
             </div>
 
             <div className="flex items-center gap-2 self-end sm:self-center">
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                 APPROVED
               </span>
               <button
                 onClick={() => updateReviewStatus(rev.id, "deleted")}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-400 transition-colors"
+                className="p-2 rounded-xl bg-gray-100 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-rose-950 text-gray-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
                 title="Delete review"
               >
                 <Trash2 className="w-3.5 h-3.5" />
@@ -85,4 +84,3 @@ export default function SellerReviewsPage() {
     </div>
   );
 }
-

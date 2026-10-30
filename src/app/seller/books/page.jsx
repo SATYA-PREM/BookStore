@@ -50,6 +50,7 @@ export default function SellerBooksPage() {
       setEditingBook((prev) => ({ ...prev, coverImage: url }));
     } catch (err) {
       console.error("Failed to upload image:", err);
+      alert("Failed to upload book image: " + err.message);
     } finally {
       setIsUploading(false);
     }
@@ -75,17 +76,17 @@ export default function SellerBooksPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900">
+          <h1 className="text-3xl font-serif font-bold text-gray-900 dark:text-white">
             Book Catalog Management
           </h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
-            Real-time synchronization across storefront and saved directly in <code className="text-indigo-600 font-mono">public/data/books.json</code>.
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
+            Real-time synchronization across storefront and saved directly in <code className="text-indigo-600 dark:text-indigo-400 font-mono">public/data/books.json</code>.
           </p>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+      <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm transition-colors">
         
         {/* Search */}
         <div className="relative w-full sm:w-80">
@@ -94,9 +95,9 @@ export default function SellerBooksPage() {
             placeholder="Search by title, author, ISBN..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-gray-50 text-xs text-gray-900 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400"
+            className="w-full pl-9 pr-3 py-2 bg-gray-50 dark:bg-slate-950 text-xs text-gray-900 dark:text-white rounded-xl border border-gray-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-slate-500"
           />
-          <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+          <Search className="w-3.5 h-3.5 text-gray-400 dark:text-slate-400 absolute left-3 top-2.5" />
         </div>
 
         {/* Status Filter Tabs */}
@@ -113,7 +114,7 @@ export default function SellerBooksPage() {
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
                 statusFilter === tab.id
                   ? "bg-indigo-600 text-white shadow-sm"
-                  : "bg-gray-100 text-gray-600 hover:text-gray-900"
+                  : "bg-gray-100 dark:bg-slate-950 text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               {tab.label}
@@ -123,11 +124,11 @@ export default function SellerBooksPage() {
       </div>
 
       {/* Books Table */}
-      <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-gray-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50 text-gray-500 font-bold uppercase tracking-wider">
+              <tr className="border-b border-gray-200 dark:border-slate-800 bg-gray-50/80 dark:bg-slate-950/40 text-gray-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3.5 px-4">Book</th>
                 <th className="py-3.5 px-4">Author</th>
                 <th className="py-3.5 px-4">Category</th>
@@ -138,42 +139,42 @@ export default function SellerBooksPage() {
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-slate-800/60">
               {filteredBooks.map((book) => {
                 const isLow = book.stock <= (book.lowStockThreshold || 10) && book.stock > 0;
                 const isOut = book.stock === 0;
 
                 return (
-                  <tr key={book.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={book.id} className="hover:bg-gray-50 dark:hover:bg-slate-850/60 transition-colors">
                     {/* Book */}
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={book.coverImage}
                           alt={book.title}
-                          className="w-9 h-12 object-cover rounded shadow bg-gray-100"
+                          className="w-9 h-12 object-cover rounded shadow bg-gray-100 dark:bg-slate-800"
                         />
                         <div className="min-w-0">
-                          <div className="font-bold text-gray-900 truncate max-w-xs">{book.title}</div>
-                          <div className="text-[10px] text-gray-400 font-mono">ISBN: {book.isbn || "N/A"}</div>
+                          <div className="font-bold text-gray-900 dark:text-white truncate max-w-xs">{book.title}</div>
+                          <div className="text-[10px] text-gray-400 dark:text-slate-400 font-mono">ISBN: {book.isbn || "N/A"}</div>
                         </div>
                       </div>
                     </td>
 
                     {/* Author */}
-                    <td className="py-3 px-4 text-gray-700 font-medium">
+                    <td className="py-3 px-4 text-gray-700 dark:text-slate-300 font-medium">
                       {book.author}
                     </td>
 
                     {/* Category */}
                     <td className="py-3 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-700 border border-gray-200">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700">
                         {book.category}
                       </span>
                     </td>
 
                     {/* Price */}
-                    <td className="py-3 px-4 text-right font-serif font-bold text-gray-900">
+                    <td className="py-3 px-4 text-right font-serif font-bold text-gray-900 dark:text-white">
                       ₹{book.price}
                     </td>
 
@@ -182,10 +183,10 @@ export default function SellerBooksPage() {
                       <span
                         className={`font-mono font-bold px-2 py-0.5 rounded ${
                           isOut
-                            ? "bg-rose-100 text-rose-700"
+                            ? "bg-rose-100 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400"
                             : isLow
-                            ? "bg-amber-100 text-amber-800"
-                            : "text-gray-900"
+                            ? "bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300"
+                            : "text-gray-900 dark:text-white"
                         }`}
                       >
                         {book.stock}
@@ -193,22 +194,22 @@ export default function SellerBooksPage() {
                     </td>
 
                     {/* Sales */}
-                    <td className="py-3 px-4 text-center font-mono font-bold text-amber-600">
+                    <td className="py-3 px-4 text-center font-mono font-bold text-amber-600 dark:text-amber-400">
                       {book.sales || 0}
                     </td>
 
                     {/* Status */}
                     <td className="py-3 px-4 text-center">
                       {isOut ? (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20">
                           Out of Stock
                         </span>
                       ) : isLow ? (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20">
                           Low Stock
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20">
                           Active
                         </span>
                       )}
@@ -219,7 +220,7 @@ export default function SellerBooksPage() {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => setEditingBook({ ...book })}
-                          className="p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700"
+                          className="p-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300"
                           title="Edit Book Details & Image"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -230,7 +231,7 @@ export default function SellerBooksPage() {
                               deleteBook(book.id);
                             }
                           }}
-                          className="p-1.5 rounded-lg bg-gray-100 hover:bg-rose-50 text-gray-500 hover:text-rose-600"
+                          className="p-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-rose-50 dark:hover:bg-rose-950 text-gray-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400"
                           title="Delete Book"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -247,14 +248,14 @@ export default function SellerBooksPage() {
 
       {/* Edit Book Modal */}
       {editingBook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-slate-950/80 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl text-xs max-h-[90vh] overflow-y-auto text-gray-900 dark:text-white transition-colors">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2">
-                <Edit2 className="w-4 h-4 text-indigo-400" />
-                <h3 className="text-base font-serif font-bold text-white">Edit Book & Cover Image</h3>
+                <Edit2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <h3 className="text-base font-serif font-bold text-gray-900 dark:text-white">Edit Book & Cover Image</h3>
               </div>
-              <button onClick={() => setEditingBook(null)} className="p-1 text-slate-400 hover:text-white">
+              <button onClick={() => setEditingBook(null)} className="p-1 text-gray-400 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -262,19 +263,19 @@ export default function SellerBooksPage() {
             <form onSubmit={handleSaveEdit} className="space-y-4">
               
               {/* Image Uploader */}
-              <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3">
+              <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-slate-950/70 border border-gray-200 dark:border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300 flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-indigo-400" /> Cover Image
+                  <span className="font-bold text-gray-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" /> Cover Image
                   </span>
-                  {isUploading && <span className="text-indigo-400 text-[11px] animate-pulse">Uploading image...</span>}
+                  {isUploading && <span className="text-indigo-600 dark:text-indigo-400 text-[11px] animate-pulse">Uploading image...</span>}
                 </div>
 
                 <div className="flex items-center gap-3">
                   <img
                     src={editingBook.coverImage}
                     alt={editingBook.title}
-                    className="w-14 h-20 object-cover rounded-lg bg-slate-900 border border-slate-700 shadow flex-shrink-0"
+                    className="w-14 h-20 object-cover rounded-lg bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 shadow flex-shrink-0"
                   />
                   <div className="flex-1 space-y-1.5">
                     <input
@@ -298,40 +299,40 @@ export default function SellerBooksPage() {
                       placeholder="Image URL"
                       value={editingBook.coverImage || ""}
                       onChange={(e) => setEditingBook({ ...editingBook, coverImage: e.target.value })}
-                      className="w-full px-2.5 py-1 bg-slate-900 border border-slate-800 rounded-lg text-white text-[10px]"
+                      className="w-full px-2.5 py-1 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-lg text-gray-900 dark:text-white text-[10px]"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Book Title</label>
+                <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Book Title</label>
                 <input
                   type="text"
                   required
                   value={editingBook.title}
                   onChange={(e) => setEditingBook({ ...editingBook, title: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Author</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Author</label>
                   <input
                     type="text"
                     required
                     value={editingBook.author}
                     onChange={(e) => setEditingBook({ ...editingBook, author: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Category</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Category</label>
                   <select
                     value={editingBook.category}
                     onChange={(e) => setEditingBook({ ...editingBook, category: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   >
                     {categories.map((c) => (
                       <option key={c.id} value={c.name}>{c.name}</option>
@@ -342,51 +343,51 @@ export default function SellerBooksPage() {
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Selling Price (₹)</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Selling Price (₹)</label>
                   <input
                     type="number"
                     required
                     value={editingBook.price}
                     onChange={(e) => setEditingBook({ ...editingBook, price: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Original MRP (₹)</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Original MRP (₹)</label>
                   <input
                     type="number"
                     value={editingBook.originalPrice || editingBook.price}
                     onChange={(e) => setEditingBook({ ...editingBook, originalPrice: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Stock Quantity</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Stock Quantity</label>
                   <input
                     type="number"
                     value={editingBook.stock}
                     onChange={(e) => setEditingBook({ ...editingBook, stock: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Badge</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Badge</label>
                   <input
                     type="text"
                     value={editingBook.badge || ""}
                     onChange={(e) => setEditingBook({ ...editingBook, badge: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-300 mb-1">Status</label>
+                  <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Status</label>
                   <select
                     value={editingBook.status || "published"}
                     onChange={(e) => setEditingBook({ ...editingBook, status: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                    className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                   >
                     <option value="published">Published</option>
                     <option value="draft">Draft</option>
@@ -395,20 +396,20 @@ export default function SellerBooksPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-300 mb-1">Description</label>
+                <label className="block font-bold text-gray-700 dark:text-slate-300 mb-1">Description</label>
                 <textarea
                   rows={2}
                   value={editingBook.description || ""}
                   onChange={(e) => setEditingBook({ ...editingBook, description: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white"
+                  className="w-full px-3 py-2 bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-xl text-gray-900 dark:text-white"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+              <div className="flex justify-end gap-2 pt-2 border-t border-gray-100 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => setEditingBook(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white"
+                  className="px-4 py-2 rounded-xl bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white"
                 >
                   Cancel
                 </button>

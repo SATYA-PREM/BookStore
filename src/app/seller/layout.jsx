@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import SellerSidebar from "@/components/seller/SellerSidebar";
 import SellerHeader from "@/components/seller/SellerHeader";
@@ -13,7 +15,7 @@ export default function SellerLayout({ children }) {
   // Loading state while checking localStorage
   if (!isInitialized) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center text-gray-500 font-mono text-xs">
+      <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] flex items-center justify-center text-gray-500 dark:text-gray-400 font-mono text-xs">
         Checking Admin Permissions...
       </div>
     );
@@ -25,7 +27,7 @@ export default function SellerLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-gray-900 flex">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] text-gray-900 dark:text-gray-100 flex transition-colors">
       {/* Sidebar Navigation */}
       <SellerSidebar
         isMobileOpen={isMobileOpen}

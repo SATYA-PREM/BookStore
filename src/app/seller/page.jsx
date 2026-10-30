@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link as Link } from "@/components/common/RouterAdapter";
 import StatCard from "@/components/seller/StatCard";
@@ -38,10 +37,10 @@ export default function SellerDashboardPage() {
   const recentOrders = orders.slice(0, 5);
 
   const statusColors = {
-    processing: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    confirmed: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    shipped: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
-    delivered: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+    processing: "bg-amber-500/10 text-amber-500 dark:text-amber-400 border-amber-500/20",
+    confirmed: "bg-blue-500/10 text-blue-500 dark:text-blue-400 border-blue-500/20",
+    shipped: "bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border-indigo-500/20",
+    delivered: "bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 border-emerald-500/20"
   };
 
   const displayName = adminUser ? adminUser.name.split(" ")[0] : "Charvi";
@@ -52,14 +51,14 @@ export default function SellerDashboardPage() {
       {/* Welcome Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
             Live Cloud Store Metrics
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-black text-gray-900">
+          <h1 className="text-3xl sm:text-4xl font-serif font-black text-gray-900 dark:text-white">
             Welcome back, {displayName}
           </h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-slate-400 mt-1">
             Here is your book commerce overview, sales velocity, and fulfillment queue for today.
           </p>
         </div>
@@ -128,20 +127,20 @@ export default function SellerDashboardPage() {
       </div>
 
       {/* Recent Orders Table */}
-      <div className="p-6 rounded-3xl bg-white border border-gray-200 shadow-sm space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-sm space-y-4 transition-colors">
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+            <span className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">
               Recent Activity
             </span>
-            <h3 className="font-serif font-bold text-xl text-gray-900 mt-0.5">
+            <h3 className="font-serif font-bold text-xl text-gray-900 dark:text-white mt-0.5">
               Recent Customer Orders
             </h3>
           </div>
 
           <Link
             href="/seller/orders"
-            className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
+            className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1"
           >
             <span>View all {orders.length} orders</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -151,7 +150,7 @@ export default function SellerDashboardPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-gray-200 text-gray-500 font-bold uppercase tracking-wider">
+              <tr className="border-b border-gray-200 dark:border-slate-800 text-gray-500 dark:text-slate-400 font-bold uppercase tracking-wider">
                 <th className="py-3 px-2">Order ID</th>
                 <th className="py-3 px-2">Customer</th>
                 <th className="py-3 px-2">Books Purchased</th>
@@ -161,29 +160,29 @@ export default function SellerDashboardPage() {
                 <th className="py-3 px-2 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
               {recentOrders.map((ord) => (
-                <tr key={ord.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-3 px-2 font-mono font-bold text-indigo-600">
+                <tr key={ord.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/60 transition-colors">
+                  <td className="py-3 px-2 font-mono font-bold text-indigo-600 dark:text-indigo-400">
                     #{ord.id}
                   </td>
                   <td className="py-3 px-2">
-                    <div className="font-bold text-gray-900">{ord.customerName}</div>
-                    <div className="text-[10px] text-gray-500">{ord.address?.city}</div>
+                    <div className="font-bold text-gray-900 dark:text-white">{ord.customerName}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-slate-400">{ord.address?.city}</div>
                   </td>
-                  <td className="py-3 px-2 text-gray-600">
+                  <td className="py-3 px-2 text-gray-600 dark:text-slate-300">
                     {ord.items?.length || 1} book(s)
                   </td>
-                  <td className="py-3 px-2 font-serif font-bold text-gray-900">
+                  <td className="py-3 px-2 font-serif font-bold text-gray-900 dark:text-white">
                     ₹{ord.total?.toLocaleString("en-IN")}
                   </td>
-                  <td className="py-3 px-2 text-gray-500">
+                  <td className="py-3 px-2 text-gray-500 dark:text-slate-400">
                     {ord.paymentMethod}
                   </td>
                   <td className="py-3 px-2">
                     <span
                       className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
-                        statusColors[ord.orderStatus] || "bg-gray-100 text-gray-700 border-gray-200"
+                        statusColors[ord.orderStatus] || "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 border-gray-200 dark:border-slate-700"
                       }`}
                     >
                       {ord.orderStatus}
@@ -192,7 +191,7 @@ export default function SellerDashboardPage() {
                   <td className="py-3 px-2 text-right">
                     <button
                       onClick={() => setSelectedInvoiceOrder(ord)}
-                      className="p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
+                      className="p-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 transition-colors"
                       title="View Tax Invoice"
                     >
                       <FileText className="w-3.5 h-3.5" />
@@ -214,4 +213,3 @@ export default function SellerDashboardPage() {
     </div>
   );
 }
-
